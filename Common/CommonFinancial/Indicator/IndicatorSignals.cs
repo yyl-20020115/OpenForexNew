@@ -14,7 +14,7 @@ namespace CommonFinancial
     public class IndicatorSignals : ISerializable
     {
         Indicator _indicator = null;
-        int _actualResultSetStartingIndex = 0;
+        //int _actualResultSetStartingIndex = 0;
         double[] _signals = new double[] { };
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace CommonFinancial
         public IndicatorSignals(SerializationInfo info, StreamingContext context)
         {
             _indicator = (Indicator)info.GetValue("indicator", typeof(Indicator));
-            _actualResultSetStartingIndex = 0;
+            //_actualResultSetStartingIndex = 0;
             _signals = new double[] { };
         }
 

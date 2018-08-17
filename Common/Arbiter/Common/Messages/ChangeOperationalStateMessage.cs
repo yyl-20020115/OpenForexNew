@@ -15,7 +15,7 @@ namespace Arbiter
         /// <summary>
         /// Is this a notification or a request.
         /// </summary>
-        public bool IsRequest
+        public new bool IsRequest
         {
             get { return _isRequest; }
             set { _isRequest = value; }

@@ -166,7 +166,7 @@ namespace ForexPlatform
     /// <summary>
     /// IDBPersistent member.
     /// </summary>
-    public event GeneralHelper.GenericDelegate<IDBPersistent> PersistenceDataUpdatedEvent;
+    //public event GeneralHelper.GenericDelegate<IDBPersistent> PersistenceDataUpdatedEvent;
 
     /// <summary>
     /// Name of the platform must be unique.

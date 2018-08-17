@@ -105,7 +105,7 @@ namespace CommonFinancial
             }
         }
 
-        Point? _lastCrossHairPosition;
+        //Point? _lastCrossHairPosition = null;
 
         /// <summary>
         /// Constructor.
@@ -143,7 +143,7 @@ namespace CommonFinancial
         {
             base.Draw(paintArgs);
 
-            _lastCrossHairPosition = null;
+            //_lastCrossHairPosition = null;
         }
 
         /// <summary>

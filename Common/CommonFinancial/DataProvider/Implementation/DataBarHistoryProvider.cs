@@ -47,7 +47,7 @@ namespace CommonFinancial
         [NonSerialized]
         List<DataBar> _dataBars = new List<DataBar>();
 
-        protected int _dataBarsLimit = 16 * 1024 * 1024;
+        private int _dataBarsLimit = 16 * 1024 * 1024;
 
         public int DataBarLimit
         {

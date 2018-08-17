@@ -118,7 +118,7 @@ namespace ForexPlatformClient
                     File.Copy(SQLiteX86FileName, SQLiteWorkingFileName, true);
                 }
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
             }
             

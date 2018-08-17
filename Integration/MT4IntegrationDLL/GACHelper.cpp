@@ -8,7 +8,9 @@ CreateAsmCache g_pfnCreateAssemblyCache = 0;
 
 void InitFunctionPointers()
 {
-  LoadLibraryShim(L"fusion.dll", 0, 0, &g_FusionDll);
+  //LoadLibraryShim(L"fusion.dll", 0, 0, &g_FusionDll);
+  g_FusionDll = LoadLibrary(L"fusion.dll");
+
   g_pfnCreateAssemblyCache = (CreateAsmCache)GetProcAddress(g_FusionDll, "CreateAssemblyCache");
 }
 

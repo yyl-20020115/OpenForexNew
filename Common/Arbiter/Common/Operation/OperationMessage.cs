@@ -15,7 +15,7 @@ namespace Arbiter
         /// <summary>
         /// Should the operation be performed synchronously.
         /// </summary>
-        public bool PerformSynchronous
+        public new bool PerformSynchronous
         {
             get { return _performSynchronous; }
             set { _performSynchronous = value; }

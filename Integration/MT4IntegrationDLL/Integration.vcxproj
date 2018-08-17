@@ -15,10 +15,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>MT4IntegrationDll</ProjectName>
+    <ProjectName>MT4Integration</ProjectName>
     <ProjectGuid>{E07DE234-D06D-44E0-8F3C-5D107363D570}</ProjectGuid>
     <RootNamespace>Integration</RootNamespace>
     <Keyword>MFCDLLProj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <TargetFrameworkVersion>4.7.1</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.New|Win32'" Label="Configuration">
@@ -62,17 +64,17 @@
     <_ProjectFileVersion>15.0.27924.0</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\..\Output\</OutDir>
+    <OutDir>..\..\Output\$(Configuration)\</OutDir>
     <IntDir>bin\$(Configuration)\</IntDir>
     <LinkIncremental />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\..\Output\</OutDir>
+    <OutDir>..\..\Output\$(Configuration)\</OutDir>
     <IntDir>bin\$(Configuration)\</IntDir>
     <LinkIncremental />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.New|Win32'">
-    <OutDir>..\..\..\Output\</OutDir>
+    <OutDir>..\..\Output\$(Configuration)\</OutDir>
     <IntDir>bin\$(Configuration)\</IntDir>
     <LinkIncremental />
   </PropertyGroup>

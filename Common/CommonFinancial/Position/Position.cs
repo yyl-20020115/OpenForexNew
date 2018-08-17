@@ -145,8 +145,8 @@ namespace CommonFinancial
         [field: NonSerialized]
         public event OperationUpdateDelegate SubmitEvent;
 
-        [field: NonSerialized]
-        public event OperationUpdateDelegate FailEvent;
+        //[field: NonSerialized]
+        //public event OperationUpdateDelegate FailEvent;
 
         #endregion
 

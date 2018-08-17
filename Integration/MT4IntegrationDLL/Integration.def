@@ -1,0 +1,27 @@
+; Integration.def : Declares the module parameters for the DLL.
+
+LIBRARY      "MT4Integration"
+
+EXPORTS
+; Explicit exports can go here
+AddSymbolPeriod
+InitializeServer
+InitializeIntegration
+UnInitializeIntegration
+RequestNewOrder
+OrderOpened
+RequestCloseOrder
+OrderClosed
+RequestModifyOrder
+OrderModified
+RequestOrderInformation
+RequestAllOrders
+RequestValues
+RequestAccountInformation
+AllOrders
+ErrorOccured
+OrderInformation
+AccountInformation
+TradingValues
+Quotes
+;FreeString

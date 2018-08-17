@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxySourceTest", "ProxySourceTest.csproj", "{809E0DBF-0ACC-4C1D-8EAA-536945C86C9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbiter", "..\..\Common\Arbiter\Arbiter.csproj", "{EDBD2C96-37F0-44AE-A15F-9E35AE63AA20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonSupport", "..\..\Common\CommonSupport\CommonSupport.csproj", "{172034CD-F109-44BD-9A27-ACBEF8C41B88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{809E0DBF-0ACC-4C1D-8EAA-536945C86C9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{809E0DBF-0ACC-4C1D-8EAA-536945C86C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{809E0DBF-0ACC-4C1D-8EAA-536945C86C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{809E0DBF-0ACC-4C1D-8EAA-536945C86C9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDBD2C96-37F0-44AE-A15F-9E35AE63AA20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDBD2C96-37F0-44AE-A15F-9E35AE63AA20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDBD2C96-37F0-44AE-A15F-9E35AE63AA20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDBD2C96-37F0-44AE-A15F-9E35AE63AA20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{172034CD-F109-44BD-9A27-ACBEF8C41B88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{172034CD-F109-44BD-9A27-ACBEF8C41B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{172034CD-F109-44BD-9A27-ACBEF8C41B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{172034CD-F109-44BD-9A27-ACBEF8C41B88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

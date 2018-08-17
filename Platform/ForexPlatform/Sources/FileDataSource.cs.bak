@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Arbiter;
+using CommonFinancial;
+using System.IO;
+using CommonSupport;
+using System.Configuration;
+using System.Runtime.Serialization;
+
+namespace ForexPlatform
+{
+    [UserFriendlyName("Historical File Data Source")]
+    [Serializable]
+    public class FileDataSource : DataSource
+    {
+        public string FolderPath
+        {
+            get 
+            {
+                if (Platform == null || Platform.Settings == null)
+                {
+                    SystemMonitor.Warning("Data access order mixed.");
+                    return string.Empty;
+                }
+
+                return (string)Platform.Settings["QuoteDataFolder"]; 
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public FileDataSource()
+            : base(false)
+        {
+            this.Name = UserFriendlyNameAttribute.GetClassAttributeName(typeof(FileDataSource));
+            this._subscriptionClientId.Name = this.Name;
+        }
+
+        protected override bool OnInitialize(Platform platform)
+        {
+            UpdateAvailableSourceSessions();
+            return true;
+        }
+
+        void UpdateAvailableSourceSessions()
+        {
+            string path = FolderPath;
+            if (Path.IsPathRooted(FolderPath) == false)
+            {
+                path = System.Windows.Forms.Application.StartupPath + "\\" + FolderPath;
+            }
+
+            if (Directory.Exists(path) == false)
+            {
+                SystemMonitor.OperationalWarning("Failed to find Quotes Data Path [" + path + "]");
+                return;
+            }
+
+            List<string> csvFiles = new List<string>(Directory.GetFiles(FolderPath, "*.csv", SearchOption.TopDirectoryOnly));
+            
+            for (int i = 0; i < csvFiles.Count; i++)
+            {
+                csvFiles[i] = Path.GetFileNameWithoutExtension(csvFiles[i]);
+            }
+
+            foreach(SessionInfo info in _sessionsSubscribers.Keys)
+            {// Clear existing sessions from container, leave only new ones.
+                csvFiles.Remove(info.Name);
+            }
+
+            foreach (string file in csvFiles)
+            {// For each new file name create a corresponding session.
+                List<BarData> datas;
+                TimeSpan period;
+                if (BarDataHelper.LoadFromFile(BarDataHelper.DataFormat.CSVHistoricalFileDefault, FolderPath + "\\" + file + ".csv", 0, 20, out period, out datas))
+                {
+                    Symbol symbol = new Symbol(Guid.NewGuid(), "Unknown", "FOREX");
+                    SessionInfo info = new SessionInfo(Guid.NewGuid(), file, symbol, period, 100000, BarDataHelper.GetPointDigits(datas));
+                    this.AddSession(info);
+                }
+            }
+
+        }
+
+        [MessageReceiver]
+        TradingValuesUpdateMessage Receive(RequestValuesMessage message)
+        {// Someone requested values.
+
+            List<BarData> bars;
+            TimeSpan period;
+
+            if (BarDataHelper.LoadFromFile(BarDataHelper.DataFormat.CSVHistoricalFileDefault, FolderPath + "\\" + message.SessionInfo.Name + ".csv", 0, 0, out period, out bars))
+            {
+                return new TradingValuesUpdateMessage(message.SessionInfo, message.OperationID, 0, 0, bars.ToArray());
+            }
+            else
+            {
+                return new TradingValuesUpdateMessage(message.SessionInfo, message.OperationID, false);
+            }
+        }
+
+    }
+}

@@ -1,0 +1,10 @@
+﻿+ Allow messages to be sent trough reference locally [optinally] to increase speed. Have a thread protection mechanism for accessing them.
+
++ Have an advanced integrated addressing mechanism that allows complex sending operations.
+
++ Operation helper should be integrated with the default client and be available if case needs.
+
+[TO BE COMPLETE WITH SOCKET SPARK MODULE]+ Provide a NON - wcf channel for communication (faster).
+
+[COMPLETE, ICLONABLE] + Make messages be Struct [??], and have no reference members. This way they can be copied very fast.
+[COMPLETE] + Make an specialized "envlope" that has the purpose to deliver the message, and remove all the transporting information from the message itself.

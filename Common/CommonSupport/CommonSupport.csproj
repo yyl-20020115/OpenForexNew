@@ -1,0 +1,615 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{172034CD-F109-44BD-9A27-ACBEF8C41B88}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CommonSupport</RootNamespace>
+    <AssemblyName>CommonSupport</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>CommonSupport.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WINDOWS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstracts\AManaged.cs" />
+    <Compile Include="Abstracts\AManagedTreeControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Abstracts\AManagedTreeControl.Designer.cs">
+      <DependentUpon>AManagedTreeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abstracts\AModifiable.cs" />
+    <Compile Include="Attributes\UserFriendlyNameAttribute.cs" />
+    <Compile Include="Collections\BiDictionary.cs" />
+    <Compile Include="Collections\HotSwapDictionary.cs" />
+    <Compile Include="Collections\HotSwapList.cs" />
+    <Compile Include="Collections\ListUnique.cs" />
+    <Compile Include="Collections\DualKeyDictionary.cs" />
+    <Compile Include="Collections\SortedListEx.cs" />
+    <Compile Include="Comparers\ReverseDateTimeComparer.cs" />
+    <Compile Include="CompilationHelper.cs" />
+    <Compile Include="Connectivity\BitLy.cs" />
+    <Compile Include="Connectivity\Email.cs" />
+    <Compile Include="Connectivity\Twitter.cs" />
+    <Compile Include="DateTime\DateTimeHelper.cs" />
+    <Compile Include="Diagnostics\DiagnosticsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Diagnostics\DiagnosticsControl.Designer.cs">
+      <DependentUpon>DiagnosticsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Events\EventBase.cs" />
+    <Compile Include="Events\EventItemTypeAttribute.cs" />
+    <Compile Include="Events\EventSource.cs" />
+    <Compile Include="File\TextFileMonitor.cs" />
+    <Compile Include="SeppukuWatchdog.cs" />
+    <Compile Include="System\ISystemContact.cs" />
+    <Compile Include="MethodInvocationInformation.cs" />
+    <Compile Include="Persistence\Database\PersistentOperational.cs" />
+    <Compile Include="Events\EventSourceChannel.cs" />
+    <Compile Include="GeneralHelper.cs" />
+    <Compile Include="System\InstanceMonitor.cs" />
+    <Compile Include="Persistence\Database\DBPersistenceToXmlDataAttribute.cs" />
+    <Compile Include="PowerCollections\Algorithms.cs" />
+    <Compile Include="PowerCollections\AssemblyInfo.cs" />
+    <Compile Include="PowerCollections\Bag.cs" />
+    <Compile Include="PowerCollections\BigList.cs" />
+    <Compile Include="PowerCollections\CollectionBase.cs" />
+    <Compile Include="PowerCollections\Comparers.cs" />
+    <Compile Include="PowerCollections\Deque.cs" />
+    <Compile Include="PowerCollections\DictionaryBase.cs" />
+    <Compile Include="PowerCollections\Hash.cs" />
+    <Compile Include="PowerCollections\ListBase.cs" />
+    <Compile Include="PowerCollections\MultiDictionary.cs" />
+    <Compile Include="PowerCollections\MultiDictionaryBase.cs" />
+    <Compile Include="PowerCollections\OrderedBag.cs" />
+    <Compile Include="PowerCollections\OrderedDictionary.cs" />
+    <Compile Include="PowerCollections\OrderedMultiDictionary.cs" />
+    <Compile Include="PowerCollections\OrderedSet.cs" />
+    <Compile Include="PowerCollections\Pair.cs" />
+    <Compile Include="PowerCollections\ReadOnlyCollectionBase.cs" />
+    <Compile Include="PowerCollections\ReadOnlyDictionaryBase.cs" />
+    <Compile Include="PowerCollections\ReadOnlyListBase.cs" />
+    <Compile Include="PowerCollections\ReadOnlyMultiDictionaryBase.cs" />
+    <Compile Include="PowerCollections\RedBlack.cs" />
+    <Compile Include="PowerCollections\Set.cs" />
+    <Compile Include="PowerCollections\Strings.cs" />
+    <Compile Include="PowerCollections\Triple.cs" />
+    <Compile Include="PowerCollections\Util.cs" />
+    <Compile Include="Profiler\ProfilerHelper.cs" />
+    <Compile Include="Profiler\PerformanceCounterHelper.cs" />
+    <Compile Include="ThreadPoolEx\FastQueue.cs" />
+    <Compile Include="ThreadPoolEx\ThreadPoolFast.cs" />
+    <Compile Include="Tracer\Filter\PriorityFilter.cs" />
+    <Compile Include="Tracer\TracerStatusStripOperator.cs" />
+    <Compile Include="DrawingHelper.cs" />
+    <Compile Include="File\FileWriterHelper.cs" />
+    <Compile Include="GenericContainer.cs" />
+    <Compile Include="GraphicSpace\CoordinateSystem.cs" />
+    <Compile Include="GraphicSpace\LabelShape.cs" />
+    <Compile Include="GraphicSpace\RectangleShape.cs" />
+    <Compile Include="GraphicSpace\RenderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GraphicSpace\RenderControl.designer.cs">
+      <DependentUpon>RenderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GraphicSpace\Shape.cs" />
+    <Compile Include="GraphicSpace\ShapeConnectionPoint.cs" />
+    <Compile Include="GraphicSpace\Space.cs" />
+    <Compile Include="GraphicSpace\SpaceCamera.cs" />
+    <Compile Include="GraphicSpace\SpaceSnap.cs" />
+    <Compile Include="GraphicSpace\Stencil.cs" />
+    <Compile Include="ControlAutomation\ApplicationControlAutomationManager.cs" />
+    <Compile Include="Id\ComponentId.cs" />
+    <Compile Include="InputHanders\HelpHandler.cs" />
+    <Compile Include="InputHanders\AutomatedControlEventHandler.cs" />
+    <Compile Include="InputHanders\AutomatedControlEventHandlerAttribute.cs" />
+    <Compile Include="Invocation\FastInvokeHelper.cs" />
+    <Compile Include="UI\ListViewAutoMapped.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\ListViewAutoMapper.cs" />
+    <Compile Include="UI\NotificationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\NotificationForm.Designer.cs">
+      <DependentUpon>NotificationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StringsControlToolStripEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\StringsControlToolStripEx.designer.cs">
+      <DependentUpon>StringsControlToolStripEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Win32.Specific\HighPerformanceTimer.cs" />
+    <Compile Include="Win32.Specific\HighPrecisionEventTimer.cs" />
+    <Compile Include="Win32.Specific\Win32Helper.cs" />
+    <Compile Include="WinFormsHelper.cs" />
+    <Compile Include="Invocation\BackgroundMessageLoopOperator.cs">
+    </Compile>
+    <Compile Include="InvokeWatchDog.cs" />
+    <Compile Include="Math\SimpleLine.cs" />
+    <Compile Include="News\ForexNewsItem.cs" />
+    <Compile Include="News\ForexNewsSource.cs" />
+    <Compile Include="News\FinancialNewsEvent.cs" />
+    <Compile Include="News\NewsSourceSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="News\NewsSourceSettingsControl.Designer.cs">
+      <DependentUpon>NewsSourceSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="News\RssNewsEvent.cs" />
+    <Compile Include="News\NewsManager.cs" />
+    <Compile Include="News\NewsManagerSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="News\NewsManagerSettingsControl.Designer.cs">
+      <DependentUpon>NewsManagerSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="News\RSS.Net\Collections\ExceptionCollection.cs" />
+    <Compile Include="News\RSS.Net\Collections\RssCategoryCollection.cs" />
+    <Compile Include="News\RSS.Net\Collections\RssChannelCollection.cs" />
+    <Compile Include="News\RSS.Net\Collections\RssFeedCollection.cs" />
+    <Compile Include="News\RSS.Net\Collections\RssItemCollection.cs" />
+    <Compile Include="News\RSS.Net\Collections\RssModuleCollection.cs" />
+    <Compile Include="News\RSS.Net\Collections\RssModuleItemCollection.cs" />
+    <Compile Include="News\RSS.Net\Collections\RssModuleItemCollectionCollection.cs" />
+    <Compile Include="News\RSS.Net\Day.cs" />
+    <Compile Include="News\RSS.Net\Hour.cs" />
+    <Compile Include="News\RSS.Net\Rss20Writer.cs" />
+    <Compile Include="News\RSS.Net\RssChannel\RssChannel.cs" />
+    <Compile Include="News\RSS.Net\RssChannel\RssCloud.cs" />
+    <Compile Include="News\RSS.Net\RssChannel\RssImage.cs" />
+    <Compile Include="News\RSS.Net\RssChannel\RssTextInput.cs" />
+    <Compile Include="News\RSS.Net\RssFeed.cs" />
+    <Compile Include="News\RSS.Net\RssItem\RssEnclosure.cs" />
+    <Compile Include="News\RSS.Net\RssItem\RssGuid.cs" />
+    <Compile Include="News\RSS.Net\RssItem\RssItem.cs" />
+    <Compile Include="News\RSS.Net\RssItem\RssSource.cs" />
+    <Compile Include="News\RSS.Net\RssModule.cs" />
+    <Compile Include="News\RSS.Net\RssModuleItem.cs" />
+    <Compile Include="News\RSS.Net\RssModules\RssBlogChannel.cs" />
+    <Compile Include="News\RSS.Net\RssModules\RssCreativeCommon.cs" />
+    <Compile Include="News\RSS.Net\RssModules\RssPhotoAlbum.cs" />
+    <Compile Include="News\RSS.Net\RssReader.cs" />
+    <Compile Include="News\RSS.Net\RssWriter.cs" />
+    <Compile Include="News\RSS.Net\Shared\DBBool.cs" />
+    <Compile Include="News\RSS.Net\Shared\RssCategory.cs" />
+    <Compile Include="News\RSS.Net\Shared\RssDefault.cs" />
+    <Compile Include="News\RSS.Net\Shared\RssElement.cs" />
+    <Compile Include="News\RSS.Net\Shared\RssEnumerators.cs" />
+    <Compile Include="News\RssNewsSource.cs" />
+    <Compile Include="Operational\IOperational.cs" />
+    <Compile Include="Operational\Operational.cs" />
+    <Compile Include="Operation\OperationInformation.cs" />
+    <Compile Include="Operation\OperationPerformerStub.cs" />
+    <Compile Include="Persistence\Database\DBPersistent.cs" />
+    <Compile Include="Persistence\Custom\PersistentData.cs" />
+    <Compile Include="Persistence\Custom\PersistencyManager.cs" />
+    <Compile Include="Persistence\Custom\PersistentEx.cs" />
+    <Compile Include="Genetics\DecisionAttribute.cs" />
+    <Compile Include="Persistence\Custom\IPersistentEx.cs" />
+    <Compile Include="Collections\CircularList.cs" />
+    <Compile Include="Math\IMovingAverage.cs" />
+    <Compile Include="Math\SimpleMovingAverage.cs" />
+    <Compile Include="Math\MathHelper.cs" />
+    <Compile Include="News\NewsItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="News\NewsItemControl.Designer.cs">
+      <DependentUpon>NewsItemControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="News\NewsManagerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="News\NewsManagerControl.Designer.cs">
+      <DependentUpon>NewsManagerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Database\DBPersistenceAttribute.cs" />
+    <Compile Include="Persistence\Database\IDBPersistent.cs" />
+    <Compile Include="Security\SecureDataEntry.cs" />
+    <Compile Include="Security\SecureDataManager.cs" />
+    <Compile Include="SerializationHelper.cs" />
+    <Compile Include="Persistence\SerializationInfoEx.cs" />
+    <Compile Include="System\SystemVariables.cs" />
+    <Compile Include="ThreadPoolEx\ThreadPoolEx2.cs" />
+    <Compile Include="ThreadPoolEx\ThreadPoolFastEx.cs" />
+    <Compile Include="TimeControl\ITimeControl.cs" />
+    <Compile Include="TimeControl\ITimeController.cs" />
+    <Compile Include="TimeControl\TimeControl.cs" />
+    <Compile Include="Tracer\Sink\FileTracerItemSink.cs" />
+    <Compile Include="Tracer\Sink\ITracerItemSink.cs" />
+    <Compile Include="Tracer\Sink\SystemTracerItemSink.cs" />
+    <Compile Include="Tracer\Sink\TracerItemKeeperSink.cs" />
+    <Compile Include="Tracer\Sink\TracerItemSink.cs" />
+    <Compile Include="Tracer\Filter\TypeTracerFilter.cs" />
+    <Compile Include="Tracer\Filter\StringTracerFilter.cs" />
+    <Compile Include="Tracer\Item\EnumTracerItem.cs" />
+    <Compile Include="Tracer\Filter\MethodTracerFilter.cs" />
+    <Compile Include="Tracer\Filter\MethodTracerFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tracer\Filter\MethodTracerFilterControl.Designer.cs">
+      <DependentUpon>MethodTracerFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tracer\Item\MethodTracerItem.cs" />
+    <Compile Include="Tracer\Tracer.cs" />
+    <Compile Include="Tracer\Filter\TypeTracerFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tracer\Filter\TypeTracerFilterControl.Designer.cs">
+      <DependentUpon>TypeTracerFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI.Combined\CombinedContainerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI.Combined\CombinedContainerControl.Designer.cs">
+      <DependentUpon>CombinedContainerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI.Combined\CombinedHostingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI.Combined\CombinedHostingForm.Designer.cs">
+      <DependentUpon>CombinedHostingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI.Draggable\DragLabelsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI.Draggable\DragLabelsForm.Designer.cs">
+      <DependentUpon>DragLabelsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI.Draggable\DragContainerControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI.Draggable\DragContainerControl.designer.cs">
+      <DependentUpon>DragContainerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI.Draggable\DragControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI.Draggable\DragControl.designer.cs">
+      <DependentUpon>DragControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI.Draggable\DragStripControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI.Draggable\DragStripControl.designer.cs">
+      <DependentUpon>DragStripControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BrushControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\BrushControl.Designer.cs">
+      <DependentUpon>BrushControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CommonBaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CommonBaseControl.Designer.cs">
+      <DependentUpon>CommonBaseControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CustomPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CustomPropertiesControl.Designer.cs">
+      <DependentUpon>CustomPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DoubleBufferListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\IDynamicPropertyContainer.cs" />
+    <Compile Include="UI\IManagedTreeNode.cs" />
+    <Compile Include="UI\ListViewCustomEx.cs">
+    </Compile>
+    <Compile Include="UI\ListViewCustomEx.designer.cs">
+      <DependentUpon>ListViewCustomEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ManagedTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\ManagedVirtualListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ManagedVirtualListView.Designer.cs">
+      <DependentUpon>ManagedVirtualListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\NumericComboBox.cs">
+    </Compile>
+    <Compile Include="UI\PenControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\PenControl.Designer.cs">
+      <DependentUpon>PenControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PropertiesForm.Designer.cs">
+      <DependentUpon>PropertiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ranged\RangedControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ranged\RangedControl.Designer.cs">
+      <DependentUpon>RangedControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ranged\IRanged.cs" />
+    <Compile Include="Statistics\ItemStatisticsAttribute.cs" />
+    <Compile Include="Statistics\MultipleItemStatistics.cs" />
+    <Compile Include="Statistics\PropertyStatisticsData.cs" />
+    <Compile Include="System\SystemMonitor.cs" />
+    <Compile Include="Profiler\ProfilerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Profiler\ProfilerControl.Designer.cs">
+      <DependentUpon>ProfilerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Profiler\Profiler.cs" />
+    <Compile Include="Tracer\Filter\EnumTracerFilter.cs" />
+    <Compile Include="Tracer\ITracerObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReflectionHelper.cs" />
+    <Compile Include="Genetics\TerminalAttribute.cs" />
+    <Compile Include="Tracer\TracerHelper.cs" />
+    <Compile Include="Tracer\TracerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tracer\TracerControl.designer.cs">
+      <DependentUpon>TracerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tracer\TracerEnumAttribute.cs" />
+    <Compile Include="Tracer\Filter\TracerFilter.cs" />
+    <Compile Include="Tracer\Item\TracerItem.cs" />
+    <Compile Include="Tracer\Filter\AssemblyTracerFilter.cs" />
+    <Compile Include="Graphics\FourDimentionDrawControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphics\FourDimentionDrawControl.Designer.cs">
+      <DependentUpon>FourDimentionDrawControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\HostingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\HostingForm.Designer.cs">
+      <DependentUpon>HostingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphics\TwoDimentionDrawControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Graphics\TwoDimentionDrawControl.Designer.cs">
+      <DependentUpon>TwoDimentionDrawControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SplitterEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\VirtualListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\WaitControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\WaitControl.Designer.cs">
+      <DependentUpon>WaitControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizard\WizardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizard\WizardControl.Designer.cs">
+      <DependentUpon>WizardControl.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Abstracts\AManagedTreeControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AManagedTreeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Diagnostics\DiagnosticsControl.resx">
+      <DependentUpon>DiagnosticsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphicSpace\RenderControl.resx">
+      <DependentUpon>RenderControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="News\NewsManagerSettingsControl.resx">
+      <DependentUpon>NewsManagerSettingsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="News\NewsSourceSettingsControl.resx">
+      <DependentUpon>NewsSourceSettingsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ranged\RangedControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RangedControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiler\ProfilerControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProfilerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="News\NewsItemControl.resx">
+      <DependentUpon>NewsItemControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="News\NewsManagerControl.resx">
+      <DependentUpon>NewsManagerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tracer\Filter\MethodTracerFilterControl.resx">
+      <DependentUpon>MethodTracerFilterControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tracer\TracerControl.resx">
+      <DependentUpon>TracerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphics\FourDimentionDrawControl.resx">
+      <DependentUpon>FourDimentionDrawControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tracer\Filter\TypeTracerFilterControl.resx">
+      <DependentUpon>TypeTracerFilterControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI.Combined\CombinedContainerControl.resx">
+      <DependentUpon>CombinedContainerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI.Combined\CombinedHostingForm.resx">
+      <DependentUpon>CombinedHostingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI.Draggable\DragLabelsForm.resx">
+      <DependentUpon>DragLabelsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI.Draggable\DragContainerControl.resx">
+      <DependentUpon>DragContainerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI.Draggable\DragControl.resx">
+      <DependentUpon>DragControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI.Draggable\DragStripControl.resx">
+      <DependentUpon>DragStripControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\BrushControl.resx">
+      <DependentUpon>BrushControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CommonBaseControl.resx">
+      <DependentUpon>CommonBaseControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CustomPropertiesControl.resx">
+      <DependentUpon>CustomPropertiesControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\HostingForm.resx">
+      <DependentUpon>HostingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ListViewCustomEx.resx">
+      <DependentUpon>ListViewCustomEx.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ManagedTreeView.resx">
+      <DependentUpon>ManagedTreeView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ManagedVirtualListView.resx">
+      <DependentUpon>ManagedVirtualListView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\NotificationForm.resx">
+      <DependentUpon>NotificationForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PenControl.resx">
+      <DependentUpon>PenControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PropertiesForm.resx">
+      <DependentUpon>PropertiesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\StringsControlToolStripEx.resx">
+      <DependentUpon>StringsControlToolStripEx.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WaitControl.resx">
+      <DependentUpon>WaitControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizard\WizardControl.resx">
+      <DependentUpon>WizardControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CommonSupport.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)\..\..\External\gacutil.exe" /i "$(TargetPath)"</PostBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)\..\..\External\gacutil.exe" /u $(ProjectName)</PreBuildEvent>
+  </PropertyGroup>
+</Project>

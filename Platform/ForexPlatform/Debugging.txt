@@ -1,0 +1,13 @@
+﻿Post Build Command allows to copy default managed expert to Files folder.
+copy "$(ProjectDir)Expert\DefaultManagedExpert.cs" "$(ProjectDir)..\..\..\Files\DefaultManagedExpert.cs"
+
+CLR Exceptions to ignore:
+
+System.Configuration.ConfigurationErrorsException [this one you need to add manually, the full name with dots]
+System.IO.FileNotFoundException
+System.Net.Sockets.SocketException
+System.ServiceModel [all]
+TargetInvocationException
+ThreadInterruptedException
+WebException
+LoadFromContext

@@ -1,0 +1,69 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Arbiter
+{
+    public class ManualTransportClient : TransportClient
+    {
+        public event HandlerDelegate<TransportMessage> MessageReceived;
+
+        public ManualTransportClient()
+            : base("ManualTransportClient", true)
+        {
+            Filter.AllowOnlyAddressedMessages = true;
+            Filter.AllowChildrenTypes = false;
+            Filter.AllowedMessageTypes.Clear();
+        }
+
+        public ManualTransportClient(string name)
+            : base("ManualTransportClient." + name, true)
+        {
+            Filter.AllowOnlyAddressedMessages = true;
+            Filter.AllowChildrenTypes = false;
+            Filter.AllowedMessageTypes.Clear();
+        }
+
+        ~ManualTransportClient()
+        {
+        }
+
+        public new void Send(TransportMessage message)
+        {
+            base.Send(message);
+        }
+
+        public new void SendAddressed(ArbiterClientId receiverID, TransportMessage message)
+        {
+            base.SendAddressed(receiverID, message);
+        }
+
+        public TExpectedMessageClass SendAndReceiveAddressed<TExpectedMessageClass>(
+            ArbiterClientId receiverID, TransportMessage message, TimeSpan timeOut)
+            where TExpectedMessageClass : TransportMessage
+        {
+            return base.SendAndReceiveAddressed<TExpectedMessageClass>(receiverID, message, timeOut);
+        }
+
+        public new TExpectedMessageClass SendAndReceive<TExpectedMessageClass>(TransportMessage message, TimeSpan timeOut)
+            where TExpectedMessageClass : TransportMessage
+        {
+            return base.SendAndReceive<TExpectedMessageClass>(message, timeOut);
+        }
+
+        public new void SendResponding(TransportInfo incomingMessageTransportInfo, TransportMessage message)
+        {
+            base.SendResponding(incomingMessageTransportInfo, message);
+        }
+
+        protected override void HandleRequestMessage(TransportMessage message)
+        {
+            if (MessageReceived != null)
+            {
+                MessageReceived(message);
+            }
+
+        }
+
+    }
+}

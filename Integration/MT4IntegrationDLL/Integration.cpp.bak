@@ -1,0 +1,206 @@
+#include <windows.h>
+
+#define EXPORTED __declspec(dllexport)
+
+int g_SessionGCHandleID = 0;
+
+int g_LastInterOpStringReturnedAddress = 0;
+
+#using "System.dll"
+#using "System.Windows.Forms.dll"
+
+// To be able to find this easily at compile time and run time, the DLL must be registered in the GAC.
+// The registration is done in the build events of the ForexServiceAPI project.
+#using "../ForexServiceAPI/bin/debug/ForexServiceAPI.dll"
+
+//ALL MT4 EXPORTS NEED TO BE DECLARED IN THE DEF FILE AS WELL !!
+#pragma push_macro("new")
+#undef new
+
+const char* LogFileName = "c:\\Integration.log";
+
+void TraceMessage(System::String* message, bool isCritical)
+{
+	// Comment this to trace not only critical messages, but all.
+	//if (isCritical)
+	{
+		System::IO::TextWriter* textWriter = new System::IO::StreamWriter(LogFileName, true);
+		textWriter->Write("UnmanagedForexServiceAPIWrapper:");
+		textWriter->Write(System::DateTime::Now.ToString());
+		textWriter->Write(" ");
+		textWriter->WriteLine(message);
+		textWriter->Close();
+	}
+}
+
+
+EXPORTED bool __stdcall InitializeIntegration(const char* forexServiceServerAddress)
+{
+	TraceMessage("InitializeIntegration invoked.", false);
+
+	System::Diagnostics::Debug::Assert(g_SessionGCHandleID == 0);
+
+	if ( g_SessionGCHandleID != 0)
+	{
+		System::Windows::Forms::MessageBox::Show("Warning - session ID already was assigned.");
+		g_SessionGCHandleID = 0;
+	}
+
+	// Handle is 0 - create the object, use the GCHandle to point to it and to keep it alive.
+	// Create the ForexServiceProviderSession.
+	System::Net::IPAddress* serverIPAddress = System::Net::IPAddress::Parse(forexServiceServerAddress);
+
+	ForexServiceAPI::ForexServiceProviderSession* fspsResult = new ForexServiceAPI::ForexServiceProviderSession(ForexServiceAPI::ForexServiceProviderSession::ForexServiceProviderType::MetaTrader4Terminal, serverIPAddress);
+	System::Runtime::InteropServices::GCHandle gcHandle = System::Runtime::InteropServices::GCHandle::Alloc(fspsResult);
+	System::IntPtr intPtr = System::Runtime::InteropServices::GCHandle::ToIntPtr(gcHandle);
+	g_SessionGCHandleID = intPtr.ToInt32();
+
+	return true;
+}
+
+// We shall be using the GCHandle mechanism to access the managed object from unmanaged code.
+ForexServiceAPI::ForexServiceProviderSession* GetTradeProviderSession()
+{
+	//TraceMessage("GetTradeProviderSession invoked.", false);
+
+	if (g_SessionGCHandleID == 0)
+	{
+		System::Diagnostics::Debug::Fail("ERROR - g_SessionGCHandleID in GetTradeProviderSession is 0. Can not perform operations.");
+		TraceMessage("ERROR - g_SessionGCHandleID in GetTradeProviderSession is 0. Can not perform operations.", true);
+		return NULL;
+	}
+
+	System::IntPtr intPtr(g_SessionGCHandleID);
+	System::Runtime::InteropServices::GCHandle gcHandle = System::Runtime::InteropServices::GCHandle::FromIntPtr(intPtr);
+	ForexServiceAPI::ForexServiceProviderSession* fspsResult = dynamic_cast<ForexServiceAPI::ForexServiceProviderSession*>(gcHandle.Target);
+	
+	// CLEAN UP left over resources.
+	// Handle this in Interop way.
+	if (g_LastInterOpStringReturnedAddress != 0)
+	{// Free the old allocated thing.
+		System::Runtime::InteropServices::Marshal::FreeHGlobal(g_LastInterOpStringReturnedAddress);
+	}
+	g_LastInterOpStringReturnedAddress = 0;
+
+	return fspsResult;
+}
+
+
+// Reference parameters can not be read or written to at all! We need to use strings.
+EXPORTED const char* __stdcall RequestNewOrder() //(double& amount, int& orderTagId)
+{
+	TraceMessage("RequestNewOrder invoked.", false);
+
+	double amount = 0;
+	int orderTagId = 0;
+
+	if (GetTradeProviderSession()->RequestNewOrder(&amount, &orderTagId))
+	{// OK, format the data and sent it over.
+		System::String* s = System::String::Concat(amount.ToString(), L";", orderTagId.ToString());
+		g_LastInterOpStringReturnedAddress = System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(s).ToInt32();
+		
+		return (const char*)g_LastInterOpStringReturnedAddress;
+	}
+
+	return NULL;
+	
+}
+
+// Reference parameters can not be read or written to at all!  We need to use strings. 
+EXPORTED const char* __stdcall RequestCloseOrder() //(int& orderTicket, int& orderTagId)
+{
+	TraceMessage("RequestCloseOrder invoked.", false);
+	
+	int orderTicket = 0;
+	int orderTagId = 0;
+	
+	if (GetTradeProviderSession()->RequestCloseOrder(&orderTicket, &orderTagId))
+	{// OK, format the data and sent it over.
+		System::String* s = System::String::Concat(orderTicket.ToString(), L";", orderTagId.ToString());
+		g_LastInterOpStringReturnedAddress = System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(s).ToInt32();
+		
+		System::Windows::Forms::MessageBox::Show((const char*)g_LastInterOpStringReturnedAddress);
+
+		return (const char*)g_LastInterOpStringReturnedAddress;
+	}
+
+	return NULL;
+}
+
+EXPORTED void __stdcall OrderOpened(int orderTicket, int orderTagId, bool succeeded)
+{
+	TraceMessage("OrderOpened invoked.", false);
+
+	// Passing parameters here is OK - those are value based passes.
+	GetTradeProviderSession()->OrderOpened(orderTicket, orderTagId, succeeded);
+}
+
+
+EXPORTED void __stdcall OrderClosed(int orderTicket, int orderTagId, bool succeeded)
+{
+	TraceMessage("OrderClosed invoked.", false);
+
+	// Passing parameters here is OK - those are value based passes.
+	GetTradeProviderSession()->OrderClosed(orderTicket, orderTagId, succeeded);
+}
+
+EXPORTED bool __stdcall RequestCloseAllOrders()
+{
+	TraceMessage("RequestCloseAllOrders invoked.", false);
+
+	// Never pass reference parameters directly, as the .NET can not access the MT4 memory, and we have access violation.
+	return GetTradeProviderSession()->RequestCloseAllOrders();
+}
+
+EXPORTED void __stdcall AllOrdersClosed(int closedOrdersCount)
+{
+	TraceMessage("AllOrdersClosed invoked.", false);
+
+	// Passing parameters here is OK - those are value based passes.
+	GetTradeProviderSession()->AllOrdersClosed(closedOrdersCount);
+}
+
+EXPORTED void __stdcall ErrorOccured(const char* errorMessage)
+{
+	TraceMessage("ErrorOccured invoked.", false);
+
+	// Passing parameters here is OK - those are value based passes.
+	GetTradeProviderSession()->ErrorOccured(errorMessage);
+}
+
+#pragma pop_macro("new")
+
+
+
+//EXPORTED bool __stdcall SetAccountInformation(
+//	double balance, double credit, const char* company, const char* currency, double equity, double freeMargin, 
+//	int leverage, double margin, const char* name, int number, double profit, const char* server)
+//{
+//
+//	Ping(1);
+
+////	System::String* s = new System::String();
+//	System::Windows::Forms::MessageBox::Show("asdasd");
+//
+//	ForexPlatform::Indicators::MovingAverage ma;
+//
+	//return true;
+//}
+//
+//
+//   //AccountBalance 
+//   //AccountCredit 
+//   //AccountCompany 
+//   //AccountCurrency 
+//   //AccountEquity 
+//   //AccountFreeMargin 
+//   //AccountLeverage 
+//   //AccountMargin 
+//   //AccountName 
+//   //AccountNumber 
+//   //AccountProfit 
+//   //AccountServer 
+//   //AccountStopoutLevel 
+//   //AccountStopoutMode 
+//
+//

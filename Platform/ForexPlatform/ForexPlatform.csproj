@@ -1,0 +1,266 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AEC78DC5-5E00-439A-ABA0-0579E09F892C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ForexPlatform</RootNamespace>
+    <AssemblyName>ForexPlatform</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>ForexPlatform.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <RegisterForComInterop>false</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.3.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.7.2.12, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TA-Lib-Core, Version=1.0.3147.41271, Culture=neutral, PublicKeyToken=fdb2a6b268f56aa5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\TA-Lib-Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adapter\AdapterManagementComponent.cs" />
+    <Compile Include="Adapter\IIntegrationAdapter.cs" />
+    <Compile Include="Adapter\LiveDemoDataAdapter.cs" />
+    <Compile Include="Adapter\ProxyIntegrationAdapterClient.cs" />
+    <Compile Include="Adapter\IntegrationAdapter.cs" />
+    <Compile Include="Adapter\ProxyIntegrationAdapter.cs" />
+    <Compile Include="Adapter\StubIntegrationAdapter.cs" />
+    <Compile Include="Adapter\YahooFinanceAdapter.cs" />
+    <Compile Include="Chart.Platform\FFNewsPlatformIndicatorChartSeries.cs" />
+    <Compile Include="Chart.Platform\PlatformIndicatorChartSeries.cs" />
+    <Compile Include="DataProvider\BackTestDataDelivery.cs" />
+    <Compile Include="DataSource\IDataSourceStubImplementation.cs" />
+    <Compile Include="DataSource\DirectDataSourceStub.cs" />
+    <Compile Include="DataStore\DataStoreDataImporter.cs" />
+    <Compile Include="DataStore\DataStoreDataDelivery.cs" />
+    <Compile Include="Indicator\Custom\VolumeCustom.cs" />
+    <Compile Include="Messages\OrderExecutionSource\AccountResponseMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\AccountRequestMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\ExecuteMarketOrderResponseMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\ExecuteMarketOrderMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\OrderMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\PositionsInformationMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\PositionsInformationUpdateResponseMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\GetExecutionSourceParametersResponseMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\GetExecutionSourceParametersMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\GetAvailableAccountsResponseMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\GetAvailableAccountsMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\GetDataSourceSymbolCompatibleMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\GetDataSourceSymbolCompatibleResponseMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\SubscribeToAccountUpdatesMessage.cs" />
+    <Compile Include="Messages\Source\GetSourceInfoMessage.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="MarketWatch\MarketWatchComponent.cs" />
+    <Compile Include="OrderExecutionSource\OrderExecutionSourceClientStub.cs" />
+    <Compile Include="Platform\TradePlatformComponent.cs" />
+    <Compile Include="DataSource\CombinedDataSubscriptionInformation.cs" />
+    <Compile Include="DataSource\DataSourceClientStub.cs" />
+    <Compile Include="DataSource\DataSourceStub.cs" />
+    <Compile Include="DataStore\DataStoreEntry.cs" />
+    <Compile Include="DataStore\DataStore.cs" />
+    <Compile Include="DataStore\DataStoreManagementComponent.cs" />
+    <Compile Include="DataStore\OnlineEntrySource.cs" />
+    <Compile Include="Diagnostics\PlatformDiagnostics.cs" />
+    <Compile Include="ExecutionAccount\RemoteExecutionAccount.cs" />
+    <Compile Include="ExpertManagement\ExpertManagementComponent.cs" />
+    <Compile Include="ExpertHost\LocalExpertHost.cs" />
+    <Compile Include="ExpertManagement\ExpertInformation.cs" />
+    <Compile Include="ExpertSession\PlatformExpertSession.cs" />
+    <Compile Include="Expert\ManualMultiTradeExpert.cs" />
+    <Compile Include="Expert\ManualTradeExpert.cs" />
+    <Compile Include="Expert\MasterOrder.cs" />
+    <Compile Include="Expert\MasterTradingExpert.cs" />
+    <Compile Include="Expert\PlatformManagedExpert.cs" />
+    <Compile Include="Expert\DefaultManagedExpert.cs" />
+    <Compile Include="Expert\ComponentTradingExpert.cs" />
+    <Compile Include="Indicator\CustomPlatformIndicator.cs" />
+    <Compile Include="Indicator\Custom\BreakOutCustom.cs" />
+    <Compile Include="Indicator\Custom\FFNewsCustom.cs" />
+    <Compile Include="Indicator\Custom\PinBarCustom.cs" />
+    <Compile Include="Indicator\Custom\ShadowTraceCustom.cs" />
+    <Compile Include="Indicator\Custom\ZigZagCustom.cs" />
+    <Compile Include="Indicator\CustomCommon\ADXClassic.cs" />
+    <Compile Include="Indicator\CustomCommon\ADXEx.cs" />
+    <Compile Include="Indicator\CustomCommon\ATR.cs" />
+    <Compile Include="Indicator\CustomCommon\BBANDS.cs" />
+    <Compile Include="Indicator\CustomCommon\EMA.cs" />
+    <Compile Include="Indicator\CustomCommon\MA.cs" />
+    <Compile Include="Indicator\CustomCommon\MACD.cs" />
+    <Compile Include="Indicator\CustomCommon\MFI.cs" />
+    <Compile Include="Indicator\CustomCommon\RSI.cs" />
+    <Compile Include="Indicator\CustomCommon\RVI.cs" />
+    <Compile Include="Indicator\CustomCommon\STO.cs" />
+    <Compile Include="Indicator\CustomCommon\TEMA.cs" />
+    <Compile Include="Indicator\GenericTALibIndicator.cs" />
+    <Compile Include="Indicator\IndicatorFactory.cs" />
+    <Compile Include="Indicator\PlatformIndicator.cs" />
+    <Compile Include="Messages\DataSource\RequestSymbolsMessage.cs" />
+    <Compile Include="Messages\DataSource\RequestSymbolsResponseMessage.cs" />
+    <Compile Include="Messages\DataSource\SessionsRuntimeInformationMessage.cs" />
+    <Compile Include="Messages\DataSource\DataSubscriptionResponseMessage.cs" />
+    <Compile Include="Messages\DataSource\QuoteUpdateMessage.cs" />
+    <Compile Include="Messages\DataSource\DataSubscriptionRequestMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\AccountInformationMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\AccountInformationUpdateMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\ModifyOrderMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\ModifyOrderResponseMessage.cs" />
+    <Compile Include="Messages\DataSource\RequestDataHistoryMessage.cs" />
+    <Compile Include="Messages\Platform\ComponentUnInitializedMessage.cs" />
+    <Compile Include="Messages\Platform\UnInitializeComponentMessage.cs" />
+    <Compile Include="Messages\DataSource\RequestQuoteUpdateMessage.cs" />
+    <Compile Include="Messages\Source\RegisterSourceMessage.cs" />
+    <Compile Include="Messages\DataSource\RequestSymbolsRuntimeInformationMessage.cs" />
+    <Compile Include="Messages\Source\RequestSourcesMessage.cs" />
+    <Compile Include="Messages\Source\SourcesUpdateMessage.cs" />
+    <Compile Include="News\BloombergNewsSource.cs" />
+    <Compile Include="News\PlatformNewsManager.cs" />
+    <Compile Include="OrderProvider\PlatformSourceOrderExecutionProvider.cs" />
+    <Compile Include="Platform\ComponentManagementAttribute.cs" />
+    <Compile Include="Platform\ManagementPlatformComponent.cs" />
+    <Compile Include="Platform\PlatformComponent.cs" />
+    <Compile Include="Platform\PlatformSettings.cs" />
+    <Compile Include="OrderProvider\LocalOrderExecutionProvider.cs" />
+    <Compile Include="OrderExecutionSource\OrderExecutionSourceStub.cs" />
+    <Compile Include="Sources\SourceInfo.cs" />
+    <Compile Include="Sources\SourceManagementComponent.cs" />
+    <Compile Include="Sources\PlatformSource.cs" />
+    <Compile Include="Sources\SourceContainer.cs" />
+    <Compile Include="Sources\SourceStub.cs" />
+    <Compile Include="Operator\PlatformOperator.cs" />
+    <Compile Include="News\PlatformNews.cs" />
+    <Compile Include="ExpertHost\ExpertHost.cs" />
+    <Compile Include="Platform\Platform.cs" />
+    <Compile Include="Messages\OrderExecutionSource\CloseOrderVolumeResponseMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\OrdersInformationUpdateResponseMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\SubmitOrderResponseMessage.cs" />
+    <Compile Include="Messages\DataSource\DataSessionResponseMessage.cs" />
+    <Compile Include="Messages\DataSource\DataHistoryUpdateMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\GetOrdersInformationMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\CloseOrderVolumeMessage.cs" />
+    <Compile Include="Messages\OrderExecutionSource\SubmitOrderMessage.cs" />
+    <Compile Include="Messages\DataSource\DataSessionRequestMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="ForexPlatform.snk" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Arbiter\Arbiter.csproj">
+      <Project>{EDBD2C96-37F0-44AE-A15F-9E35AE63AA20}</Project>
+      <Name>Arbiter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\CommonFinancial\CommonFinancial.csproj">
+      <Project>{075EA77E-6ED3-40C9-8571-D74BC0A848EB}</Project>
+      <Name>CommonFinancial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\CommonSupport\CommonSupport.csproj">
+      <Project>{172034CD-F109-44BD-9A27-ACBEF8C41B88}</Project>
+      <Name>CommonSupport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ForexPlatformPersistency\ForexPlatformPersistence.csproj">
+      <Project>{292F1097-F614-4796-8A21-9F08DB5E3442}</Project>
+      <Name>ForexPlatformPersistence</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Debugging.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataStore\Converters\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)\..\..\External\gacutil.exe" /i "$(TargetPath)"</PostBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)\..\..\External\gacutil.exe" /u $(ProjectName)
+</PreBuildEvent>
+  </PropertyGroup>
+</Project>

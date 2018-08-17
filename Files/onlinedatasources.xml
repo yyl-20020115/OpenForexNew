@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfOnlineEntrySource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_EURUSD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURUSD</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_GBPUSD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>GBPUSD</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_USDCHF.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>USDCHF</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_USDJPY.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>USDJPY</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_USDCAD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>USDCAD</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_AUDUSD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>AUDUSD</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_EURCHF.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURCHF</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_EURJPY.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURJPY</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_EURGBP.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURGBP</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_GBPJPY.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>GBPJPY</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_EURCHF.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURCHF</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_GBPCHF.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>GBPCHF</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_EURCAD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURCAD</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_EURAUD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURAUD</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_EURCHF.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURCHF</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_NZDUSD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>NZDUSD</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_USDSGD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>USDSGD</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/D1_CHFJPY.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>CHFJPY</SymbolName>
+    <PeriodString>1.00:00:00</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_EURUSD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURUSD</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_GBPUSD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>GBPUSD</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_USDCHF.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>USDCHF</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_USDJPY.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>USDJPY</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_USDCAD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>USDCAD</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_AUDUSD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>AUDUSD</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_EURCHF.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURCHF</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_EURJPY.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURJPY</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_EURGBP.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURGBP</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_GBPJPY.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>GBPJPY</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_EURCHF.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURCHF</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_GBPCHF.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>GBPCHF</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_EURCAD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURCAD</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_EURAUD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURAUD</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_EURCHF.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>EURCHF</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_NZDUSD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>NZDUSD</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_USDSGD.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>USDSGD</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+  <OnlineEntrySource>
+    <Uri>http://databank.alpari.org/h_mt/M1_CHFJPY.zip</Uri>
+    <Source>Alpari Databank</Source>
+    <SymbolName>CHFJPY</SymbolName>
+    <PeriodString>0.00:00:01</PeriodString>
+  </OnlineEntrySource>
+
+
+
+</ArrayOfOnlineEntrySource>

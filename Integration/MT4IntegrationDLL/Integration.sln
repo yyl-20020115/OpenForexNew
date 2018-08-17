@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MT4IntegrationDll", "Integration.vcproj", "{E07DE234-D06D-44E0-8F3C-5D107363D570}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E07DE234-D06D-44E0-8F3C-5D107363D570}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E07DE234-D06D-44E0-8F3C-5D107363D570}.Debug|Win32.Build.0 = Debug|Win32
+		{E07DE234-D06D-44E0-8F3C-5D107363D570}.Release|Win32.ActiveCfg = Release|Win32
+		{E07DE234-D06D-44E0-8F3C-5D107363D570}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,404 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Arbiter;
+using System.Windows.Forms;
+using CommonSupport;
+using System.Diagnostics;
+using System.Reflection;
+using System.Collections.ObjectModel;
+using CommonFinancial;
+
+namespace ForexPlatform
+{
+    /// <summary>
+    /// Expert host has a tripple role:
+    /// (local mode) - It can host an expert on the local arbiter in the platform execution process
+    /// </summary>
+    public abstract class ExpertHost : TransportClient, IExpertSessionManager
+    {
+        Type _expertType;
+        List<ArbiterClientId?> _platformMessagePath;
+
+        protected Expert _expert;
+        public Expert Expert
+        {
+            get { lock (this) { return _expert; } }
+        }
+
+        bool _isConnectedToPlatform = false;
+        public bool IsConnectedToPlatform
+        {
+            get { lock (this) { return _isConnectedToPlatform; } }
+        }
+
+        ListEx<ArbiterClientId> _dataProviderSources = new ListEx<ArbiterClientId>();
+        public ArbiterClientId[] DataSources
+        {
+            get { lock (this) { return _dataProviderSources.ToArray(); } }
+        }
+
+        ListEx<ArbiterClientId> _orderExecutionSources = new ListEx<ArbiterClientId>();
+        public ArbiterClientId[] ExecutionSources
+        {
+            get { lock (this) { return _orderExecutionSources.ToArray(); } }
+        }
+
+        List<ExpertSession> _existingSessions = new List<ExpertSession>();
+        public ReadOnlyCollection<ExpertSession> Sessions
+        {
+            get { lock (this) { return _existingSessions.AsReadOnly(); } }
+        }
+
+        public Dictionary<string, List<SessionInfo>> SessionsGroupsInfos
+        {
+            get 
+            {
+                Dictionary<string, List<SessionInfo>> result = new Dictionary<string, List<SessionInfo>>();
+                lock (this)
+                {
+                    foreach (ExpertSession session in _existingSessions)
+                    {
+                        if (result.ContainsKey(session.SessionInfo.SymbolGroup) == false)
+                        {
+                            result[session.SessionInfo.SymbolGroup] = new List<SessionInfo>();
+                        }
+                        result[session.SessionInfo.SymbolGroup].Add(session.SessionInfo);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public int ExistingSessionsCount
+        {
+            get { lock (this) { return _existingSessions.Count; } }
+        }
+
+        public string ExpertName
+        {
+            get
+            {
+                lock (this)
+                {
+                    if (_expert != null)
+                    {
+                        return _expert.Name;
+                    }
+                    else { return ""; }
+                }
+            }
+        }
+
+        public delegate void SourceSessionUpdateDelegate(IExpertSessionManager manager, ArbiterClientId source, SessionInfo info, bool isAdded);
+
+        public event GeneralHelper.GenericDelegate<IExpertSessionManager> SourcesUpdateEvent;
+        public event GeneralHelper.GenericDelegate<ISessionInfoManager> SessionsUpdateEvent;
+
+        /// <summary>
+        /// Local execution. Expert to be executed locally, within the platform process space and on the platforms arbiter.
+        /// </summary>
+        protected ExpertHost(string name, Type expertType)
+            : base(name, false)
+        {
+            TracerHelper.Trace(this.Name);
+            _expertType = expertType;
+
+            base.DefaultTimeOut = TimeSpan.FromSeconds(10);
+        }
+
+        #region Host Related
+
+        protected bool HostInitialize(List<ArbiterClientId?> platformMessagePath)
+        {
+            string expertName = this.Name + ".expert";// this.Name.Replace(".host", ".expert");
+
+            // Clean expertname since we might be sending it trough command line.
+            expertName = expertName.Replace(" ", "_");
+            expertName = expertName.Replace("\"", "");
+
+            lock (this)
+            {
+                SystemMonitor.CheckThrow(_expert == null);
+
+                _platformMessagePath = platformMessagePath;
+
+                // Create the expert.
+                SystemMonitor.CheckThrow(_expertType.IsSubclassOf(typeof(Expert)), "Invalid expert type passed in.");
+                ConstructorInfo constructor = _expertType.GetConstructor(new Type[] { typeof(ExpertHost), typeof(string) });
+
+                SystemMonitor.CheckThrow(constructor != null, "Failed to find corresponding constructor for expert type [" + _expertType.ToString() + "].");
+                _expert = (Expert)constructor.Invoke(new object[] { this, expertName });
+
+                if (_expert.Initialize() == false)
+                {
+                    SystemMonitor.Error("Expert host failed to connect to platform.");
+                    return false;
+                }
+
+                ResultTransportMessage result =
+                    SendAndReceiveForwarding<ResultTransportMessage>(_platformMessagePath, new SubscribeToSourcesMessage());
+                _isConnectedToPlatform = (result != null && result.OperationResult);
+                return true;
+
+            }
+        }
+
+        protected bool HostUnInitialize()
+        {
+            lock (this)
+            {
+                if (_isConnectedToPlatform)
+                {
+                    SendForwarding(_platformMessagePath, new UnSubscribeToSourcesMessage(false));
+                    _isConnectedToPlatform = false;
+                }
+
+                while (_existingSessions.Count > 0)
+                {
+                    DestroySession(_existingSessions[0]);
+                }
+
+                _orderExecutionSources.Clear();
+                _dataProviderSources.Clear();
+
+                _expert.UnInitialize();
+                _expert = null;
+            }
+            return true;
+        }
+
+        public SessionInfo[] GetSourceSessions(ArbiterClientId sourceId, bool includeAlreadyCreated)
+        {
+            if (IsConnectedToPlatform == false)
+            {
+                return new SessionInfo[] { };
+            }
+
+            List<ArbiterClientId?> sourcePath;
+            lock(this)
+            {
+                sourcePath = new List<ArbiterClientId?>(_platformMessagePath);
+            }
+            sourcePath[sourcePath.Count - 1] = sourceId;
+
+            GetSessionsResponceMessage sessionsResultMessage = 
+                this.SendAndReceiveForwarding<GetSessionsResponceMessage>(sourcePath, new GetSessionsMessage());
+
+            SystemMonitor.CheckError(sessionsResultMessage != null, "Failed to obtain sessions.");
+
+            if (sessionsResultMessage == null)
+            {
+                return new SessionInfo[] { };
+            }
+
+            if (includeAlreadyCreated == false)
+            {
+                List<SessionInfo> resultSessions = new List<SessionInfo>(sessionsResultMessage.Sessions);
+                lock (this)
+                {// Filter out existing sessions.
+                    foreach (ExpertSession session in _existingSessions)
+                    {
+                        resultSessions.Remove(session.SessionInfo);
+                    }
+                }
+                
+                return resultSessions.ToArray();
+            }
+            else
+            {
+                return sessionsResultMessage.Sessions;
+            }
+        }
+
+        #endregion
+
+        #region From Platform
+
+        [MessageReceiver]
+        protected void Receive(SourceUpdatedMessage message)
+        {
+            lock (this)
+            {
+                if (message.IsDataProvider)
+                {
+                    _dataProviderSources.UpdateItem(message.SourceId, message.IsAdded);
+                }
+                else if (message.IsOrderExecutioner)
+                {
+                    _orderExecutionSources.UpdateItem(message.SourceId, message.IsAdded);
+                }
+            }
+
+            //if (message.IsAdded)
+            //{// Added a new source, subscribe.
+                //List<ArbiterClientId?> forwardSourcePath = new List<ArbiterClientId?>(_platformMessagePath);
+                //forwardSourcePath[forwardSourcePath.Count - 1] = message.SourceId;
+                //ResultTransportMessage subscription = this.SendAndReceiveForwarding<ResultTransportMessage>(forwardSourcePath, new SubscribeToSessionsUpdatesMessage());
+            //}
+
+            GeneralHelper.SafeEventRaise(SourcesUpdateEvent, this);
+        }
+
+        [MessageReceiver]
+        protected void Receive(SourcesSubscriptionTerminatedMessage message)
+        {
+            lock (this)
+            {
+                _isConnectedToPlatform = false;
+
+                _dataProviderSources.Clear();
+                _orderExecutionSources.Clear();
+            }
+
+            GeneralHelper.SafeEventRaise(SourcesUpdateEvent, this);
+        }
+
+        #endregion
+
+        #region IExpertSessionManager Members
+
+        /// <summary>
+        /// Do not initialize the data Provider before passing it, do not add it to arbiter.
+        /// Same goes for orderExecutioner
+        /// </summary>
+        public ExpertSession CreateSimulationSession(ArbiterClientId dataProviderId,
+            IOrderExecutionProvider orderExecutioner, SessionInfo sessionInfo)
+        {
+            if (IsConnectedToPlatform == false || 
+                _dataProviderSources.Contains(dataProviderId) == false)
+            {
+                return null;
+            }
+
+            ExpertSession session = new ExpertSession(sessionInfo);
+            lock (this)
+            {
+                List<ArbiterClientId?> dataProviderSourcePath = new List<ArbiterClientId?>(_platformMessagePath);
+                dataProviderSourcePath[dataProviderSourcePath.Count - 1] = dataProviderId;
+
+                RemoteSimulationDataProvider dataProvider = new RemoteSimulationDataProvider();
+                Arbiter.AddClient(dataProvider);
+                if (dataProvider.Initialize(sessionInfo, dataProviderSourcePath) == false)
+                {
+                    Arbiter.RemoveClient(dataProvider);
+                    return null;
+                }
+
+                if (orderExecutioner != null
+                    && orderExecutioner.Initialize(session) == false)
+                {
+                    dataProvider.UnInitialize();
+                    Arbiter.RemoveClient(dataProvider);
+                    return null;
+                }
+
+                if (session.Initialize(dataProvider, orderExecutioner) == false)
+                {
+                    dataProvider.UnInitialize();
+                    orderExecutioner.UnInitialize();
+                    Arbiter.RemoveClient(dataProvider);
+                    return null;
+                }
+
+                _existingSessions.Add(session);
+            }
+
+            GeneralHelper.SafeEventRaise(SessionsUpdateEvent, this);
+            return session;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dataProviderId"></param>
+        /// <param name="orderExecutionerId">Pass null to indicate no executioner.</param>
+        /// <param name="sessionInfo"></param>
+        /// <returns></returns>
+        public ExpertSession CreateRemoteSession(ArbiterClientId dataProviderId, 
+            ArbiterClientId? orderExecutionerId, SessionInfo sessionInfo)
+        {
+            if (IsConnectedToPlatform == false || _dataProviderSources.Contains(dataProviderId) == false
+                || (orderExecutionerId.HasValue && _orderExecutionSources.Contains(orderExecutionerId.Value) == false))
+            {
+                return null;
+            }
+
+            ExpertSession session = new ExpertSession(sessionInfo);
+            lock (this)
+            {
+                List<ArbiterClientId?> dataProviderSourcePath = new List<ArbiterClientId?>(_platformMessagePath);
+
+                dataProviderSourcePath[dataProviderSourcePath.Count - 1] = dataProviderId;
+
+                RemoteDataProvider dataProvider = new RemoteDataProvider();
+                Arbiter.AddClient(dataProvider);
+                if (dataProvider.Initialize(sessionInfo, dataProviderSourcePath) == false)
+                {
+                    Arbiter.RemoveClient(dataProvider);
+                    return null;
+                }
+
+                RemoteOrderExecutionProvider orderExecutioner = null;
+                if (orderExecutionerId.HasValue)
+                {
+                    List<ArbiterClientId?> orderExecutionSourcePath = new List<ArbiterClientId?>(_platformMessagePath);
+                    orderExecutionSourcePath[orderExecutionSourcePath.Count - 1] = orderExecutionerId.Value;
+
+                    orderExecutioner = new RemoteOrderExecutionProvider(orderExecutionSourcePath);
+                    Arbiter.AddClient(orderExecutioner);
+                    if (orderExecutioner.Initialize(session) == false)
+                    {
+                        dataProvider.UnInitialize();
+                        Arbiter.RemoveClient(dataProvider);
+                        Arbiter.RemoveClient(orderExecutioner);
+                        return null;
+                    }
+                }
+
+                if (session.Initialize(dataProvider, orderExecutioner) == false)
+                {
+                    dataProvider.UnInitialize();
+                    orderExecutioner.UnInitialize();
+                    Arbiter.RemoveClient(dataProvider);
+                    Arbiter.RemoveClient(orderExecutioner);
+                    return null;
+                }
+
+                _existingSessions.Add(session);
+            }
+
+            GeneralHelper.SafeEventRaise(SessionsUpdateEvent, this);
+            return session;
+        }
+
+
+        public void DestroySession(ExpertSession session)
+        {
+            lock (this)
+            {
+                session.DataProvider.UnInitialize();
+                Arbiter.RemoveClient((RemoteDataProvider)session.DataProvider);
+
+                if (session.OrderExecutionProvider != null)
+                {
+                    session.OrderExecutionProvider.UnInitialize();
+                    if (session.OrderExecutionProvider is ArbiterClientBase)
+                    {
+                        Arbiter.RemoveClient((ArbiterClientBase)session.OrderExecutionProvider);
+                    }
+                }
+
+                session.UnInitialize();
+                _existingSessions.Remove(session);
+            }
+
+            GeneralHelper.SafeEventRaise(SessionsUpdateEvent, this);
+        }
+
+        #endregion
+
+
+
+    }
+}

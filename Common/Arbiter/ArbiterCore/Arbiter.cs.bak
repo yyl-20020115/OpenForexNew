@@ -1,0 +1,317 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.ServiceModel;
+using CommonSupport;
+
+namespace Arbiter
+{
+    public delegate void HandlerDelegate();
+    public delegate void HandlerDelegate<TParameterOne>(TParameterOne parameter1);
+    public delegate void HandlerDelegate<TParameterOne, TParameterTwo>(TParameterOne parameter1, TParameterTwo parameter2);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Arbiter : IArbiterClientManager, IDisposable
+    {
+        TimeOutMonitor _timeOutMonitor = new TimeOutMonitor();
+        ExecutionManager _executionManager;
+
+        Dictionary<IArbiterClient, MessageFilter> _clientsAndFilters = new Dictionary<IArbiterClient, MessageFilter>();
+        SortedDictionary<ArbiterClientId, IArbiterClient> _clientsIdsAndClients = new SortedDictionary<ArbiterClientId, IArbiterClient>();
+
+        string _name;
+        public string Name
+        {
+            get { return _name; }
+        }
+
+        volatile bool _isDisposed = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Arbiter(string name)
+        {
+            _name = name;
+            _timeOutMonitor.EntityTimedOutEvent += new HandlerDelegate<TimeOutable>(_timeOutMonitor_EntityTimedOutEvent);
+            _executionManager = new ExecutionManager(this);
+        }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            _isDisposed = true;
+
+            lock (_timeOutMonitor)
+            {
+                _timeOutMonitor.Dispose();
+                _timeOutMonitor = null;
+            }
+
+            lock (_executionManager)
+            {
+                _executionManager.Dispose();
+                _executionManager = null;
+            }
+
+            lock (_clientsAndFilters)
+            {// Remove all clients to allow them to UnInitialize, and if they have any unmanaged resources - release them.
+                List<IArbiterClient> clients = new List<IArbiterClient>(_clientsAndFilters.Keys);
+                foreach(IArbiterClient client in clients)
+                {
+                    this.RemoveClient(client);
+                }
+            }
+        }
+
+        #endregion
+
+
+        /// <summary>
+        /// Will send a point to point message and start a conversation that can have many replies.
+        /// </summary>
+        public ConversationPointToPoint CreateConversation(ArbiterClientId senderID, ArbiterClientId receiverID, Message message, TimeSpan timeout)
+        {
+            SystemMonitor.CheckError(((TransportMessage)message).TransportInfo.CurrentTransportInfo != null);
+
+            if (message is TransportMessage)
+            {
+                SystemMonitor.CheckError(((TransportMessage)message).TransportInfo.CurrentTransportInfo != null);
+                TracerHelper.Trace("sender[" + senderID.Id.Name + "], receiver [" + receiverID.Id.Name + "], message [" + message.GetType().Name + "] [" + ((TransportMessage)message).TransportInfo.TransportInfoCount + "]");
+            }
+            else
+            {
+                TracerHelper.Trace("sender[" + senderID.Id.Name + "], message [" + message.GetType().Name + "]");
+            }
+
+            if (GetClientByID(senderID, true) == null)
+            {
+                SystemMonitor.Error("Creating conversation by not present sender.");
+                return null;
+            }
+
+            if (GetClientByID(receiverID, true) == null)
+            {
+                SystemMonitor.OperationWarning("Creating conversation by not present receiver. [" + receiverID.Id.Print() + "]");
+                return null;
+            }
+
+            ConversationPointToPoint conversation = new ConversationPointToPoint(_executionManager, message, senderID, receiverID, timeout);
+            if (_isDisposed)
+            {// Possible to get disposed while operating here.
+                return null;
+            }
+
+            lock (_timeOutMonitor)
+            {
+                _timeOutMonitor.AddEntity(conversation);
+            }
+            return conversation;
+        }
+
+        /// <summary>
+        /// Will start a shoutcast mode conversation, the sender sending to all.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="message"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public ConversationMultiPoint CreateConversation(ArbiterClientId senderID, Message message, TimeSpan timeout)
+        {
+            if (message is TransportMessage)
+            {
+                SystemMonitor.CheckError(((TransportMessage)message).TransportInfo.CurrentTransportInfo != null);
+                TracerHelper.Trace("sender[" + senderID.Id.Name + "], message [" + message.GetType().Name + "] [" + ((TransportMessage)message).TransportInfo.TransportInfoCount + "]");
+            }
+            else
+            {
+                TracerHelper.Trace("sender[" + senderID.Id.Name + "], message [" + message.GetType().Name + "]");
+            }
+
+            if (GetClientByID(senderID, true) == null)
+            {
+                throw new Exception("Creating conversation by not present sender/owner.");
+            }
+
+            ConversationMultiPoint conversation = new ConversationMultiPoint(_executionManager, message, senderID, GatherMessageClients(message, senderID), timeout);
+            
+            if (_isDisposed)
+            {// Possible to get disposed while operating here.
+                return null;
+            }
+            
+            lock (_timeOutMonitor)
+            {
+                _timeOutMonitor.AddEntity(conversation);
+            }
+            return conversation;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parameter0"></param>
+        protected void _timeOutMonitor_EntityTimedOutEvent(TimeOutable parameter0)
+        {
+            Conversation conversation = (Conversation)parameter0;
+            IArbiterClient client = GetClientByID(conversation.OwnerID, true);
+            if (client != null)
+            {
+                client.ReceiveConversationTimedOut(conversation);
+            }
+        }
+        
+                /// <summary>
+        /// Find out what clients need to receive this message.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public IEnumerable<ArbiterClientId> GatherMessageClients(Message message, ArbiterClientId senderID)
+        {
+            List<ArbiterClientId> clients = new List<ArbiterClientId>();
+            if (_isDisposed)
+            {// Possible to get disposed while operating here.
+                return null;
+            }
+            lock (_clientsAndFilters)
+            {
+                foreach (IArbiterClient client in _clientsAndFilters.Keys)
+                {
+                    if (_clientsAndFilters[client].MessageAllowed(message))
+                    {
+                        clients.Add(client.SubscriptionClientID);
+                    }
+                }
+            }
+            return clients;
+        }
+
+        #region IArbiterClientManager Members
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        public bool AddClient(IArbiterClient client)
+        {
+            if (client == null || GetClientByID(client.SubscriptionClientID, false) != null)
+            {
+                return false;
+            }
+
+            if (_isDisposed)
+            {// Possible to get disposed while operating here.
+                return false;
+            }
+
+            lock (_clientsAndFilters)
+            {
+                if (_clientsAndFilters.ContainsKey(client))
+                {
+                    return false;
+                }
+
+                if (client.ArbiterInitialize(this) == false)
+                {
+                    SystemMonitor.OperationError("Client failed arbiter initialialization [" + client.Name + "]");
+                    return false;
+                }
+
+                _clientsAndFilters.Add(client, client.SubscriptionMessageFilter);
+            }
+
+            if (_isDisposed)
+            {// Possible to get disposed while operating here.
+                return false;
+            }
+            lock (_clientsIdsAndClients)
+            {
+                _clientsIdsAndClients.Add(client.SubscriptionClientID, client);
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check if there is a client with this ID to this Arbiter instance.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool HasClient(ArbiterClientId id)
+        {
+            lock (_clientsIdsAndClients)
+            {
+                return _clientsIdsAndClients.ContainsKey(id);
+            }
+        }
+
+        /// <summary>
+        /// Allows to retrieve an instance of a client by its ID. Use with caution since it breaks the independence model 
+        /// and is applied only in special cases.
+        /// </summary>
+        public IArbiterClient GetClientByID(ArbiterClientId id)
+        {
+            return GetClientByID(id, true);
+        }
+
+        /// <summary>
+        /// Will return NULL if the client has left arbiter. Do not keep references to this as it will keep objects alive!
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IArbiterClient GetClientByID(ArbiterClientId id, bool useOptionalReference)
+        {
+            if (_isDisposed)
+            {// Possible to get disposed while operating here.
+                return null;
+            }
+
+            if (useOptionalReference && id.OptionalReference != null)
+            {// Optional reference allows to circumvent the usage of the dictionary, 
+                // to establish the corresponding client for this id.
+                return id.OptionalReference;
+            }
+
+            lock (_clientsIdsAndClients)
+            {
+                IArbiterClient resultValue;
+                if (_clientsIdsAndClients.TryGetValue(id, out resultValue))
+                {
+                    return resultValue;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        public bool RemoveClient(IArbiterClient client)
+        {
+            if (_isDisposed)
+            {// Possible to get disposed while operating here.
+                return false;
+            }
+
+            lock (_clientsAndFilters)
+            {
+                client.ArbiterUnInitialize();
+                return _clientsAndFilters.Remove(client) && _clientsIdsAndClients.Remove(client.SubscriptionClientID);
+            }
+        }
+
+        #endregion
+
+
+    }
+
+}

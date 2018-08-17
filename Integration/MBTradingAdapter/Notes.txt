@@ -1,0 +1,9 @@
+﻿+ Make sure to build in x86 mode, rather than ANY CPU, since issues occur when porting to x64 systems
+http://www.protrader.org/showthread.php?p=2057
+
++ ALL SYMBOLS MUST BE PASSED TO THE API IN "UPPERCASE"
+
+http://sdk.mbtrading.com/v.htm
+"The native (retail) Navigator is a 32-bit platform (API) but works fine with Vista and 64-bit operating systems. 
+BUT, be sure to set your SDK project for "x86" and NOT "AnyCPU" or "x64" as your project must be compiled or built 
+as a 32-bit executable -- Project / [projectname] Properties / Compile / Advanced Compile Options / Target CPU: / x86"

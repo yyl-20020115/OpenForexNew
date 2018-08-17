@@ -1,0 +1,2 @@
+﻿The assembly is used to demonstrate how to load external custom indicators at runtime.
+To test, click Tools >> Load Custom Indicator Assembly

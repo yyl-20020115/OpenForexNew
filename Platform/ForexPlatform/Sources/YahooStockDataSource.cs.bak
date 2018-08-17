@@ -1,0 +1,144 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Arbiter;
+using CommonFinancial;
+using System.IO;
+using CommonSupport;
+using System.Configuration;
+using System.Xml;
+using System.Net;
+
+namespace ForexPlatform
+{
+    [UserFriendlyName("Yahoo Historical Stock Quotes Data Source")]
+    [Serializable]
+    public class YahooStockDataSource : DataSource
+    {
+        /// <summary>
+        /// The list is extracted from the BATS web site, since they are the data provider.
+        /// </summary>
+        const string YahooStockSymbolsFileName = "batsSymbols.xml";
+
+        string _filesFolder;
+
+        DateTime _startDate = new DateTime(1900, 01, 01);
+        DateTime _endDate = DateTime.Now;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public YahooStockDataSource()
+            : base(false)
+        {
+            this.Name = UserFriendlyNameAttribute.GetClassAttributeName(typeof(YahooStockDataSource));
+            this._subscriptionClientId.Name = this.Name;
+        }
+
+        protected override bool OnInitialize(Platform platform)
+        {
+            string symbolsFilePath = StockSymbolFilePath;
+            if (File.Exists(symbolsFilePath) == false)
+            {
+                SystemMonitor.Error("Failed to initialize " + this.GetType().Name + " [Symbols file not found: " + symbolsFilePath + "]");
+                return false;
+            }
+
+            GeneralHelper.FireAndForget(new GeneralHelper.DefaultDelegate(DoInitialize));
+            return true;
+        }
+
+        void DoInitialize()
+        {
+            string symbolsFilePath = StockSymbolFilePath;
+            System.Xml.XmlDocument document = new System.Xml.XmlDocument();
+            document.Load(symbolsFilePath);
+
+            XmlNode batsNode = document.ChildNodes[1];
+            XmlNode symbolsNode = batsNode.ChildNodes[0];
+            List<string> symbolsNames = new List<string>();
+
+            foreach (XmlNode node in symbolsNode)
+            {
+                string symbolName = (string)node.Attributes["name"].Value;
+                
+                // BATS and Yahoo symbols vary, so compensate.
+                symbolName = symbolName.Replace("-", "-P").Replace(".", "-").Replace("~", "-TEST").Replace("+", "-WT");
+
+                symbolsNames.Add(symbolName);
+            }
+
+            foreach (string symbolName in symbolsNames)
+            {// For each new file name create a corresponding session.
+                // All yahoo stock quotes are 1 day.
+                TimeSpan timeInterval = TimeSpan.FromDays(1);
+                Symbol symbol = new Symbol(Guid.NewGuid(), symbolName, "Stock Quotes");
+                SessionInfo info = new SessionInfo(Guid.NewGuid(), "Historical Quotes " + symbolName, symbol, timeInterval, 1, 4);
+                this.AddSession(info);
+            }
+        }
+
+        private List<BarData> GetSymbolData(Symbol symbol)
+        {
+            // TODO : place here an intelligent update caching system.
+
+            List<BarData> resultingData = new List<BarData>();
+            
+            // A typical historical address looks like this (symbol is "AA")
+            // http://ichart.finance.yahoo.com/table.csv?s=AA&d=11&e=8&f=2008&g=d&a=0&b=2&c=1962&ignore=.csv
+
+            StringBuilder queryBuilder = new StringBuilder("http://ichart.finance.yahoo.com/table.csv");
+            queryBuilder.AppendFormat("?s={0}&d={1}&e={2}&f={3}&a={4}&b={5}&c={6}", symbol.Name,
+                _endDate.Month - 1, _endDate.Day, _endDate.Year,
+                _startDate.Month - 1, _startDate.Day, _startDate.Year);
+
+            string address = queryBuilder.ToString();
+            if (Uri.IsWellFormedUriString(queryBuilder.ToString(), UriKind.RelativeOrAbsolute) == false)
+            {
+                address = Uri.EscapeUriString(address);
+                address = Uri.EscapeDataString(address);
+            }
+            
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    string csvstring = client.DownloadString(address);
+                    TimeSpan timePeriod;
+                    using (System.IO.StringReader stringReader = new StringReader(csvstring))
+                    {
+                        // First line is the format info.
+                        string formatInfo = stringReader.ReadLine();
+
+                        BarDataHelper.LoadCSVFromReader(BarDataHelper.DataFormat.CSVYahooFinanceQuotes, stringReader, 0, 0,
+                            out timePeriod, out resultingData);
+                    }
+                }
+                catch
+                {
+                    SystemMonitor.OperationError("Failed to retrieve stock quotes data [" + symbol + ", " + queryBuilder.ToString() + "]");
+                    return resultingData;
+                }
+            }
+
+            // Yahoo provides the stock data with the first row being the most current.
+            resultingData.Reverse();
+
+            return resultingData;
+        }
+
+        [MessageReceiver]
+        TradingValuesUpdateMessage Receive(RequestValuesMessage message)
+        {// Someone requested values.
+
+            if (this.SessionsGroupsInfos[message.SessionInfo.Symbol.Group].Contains(message.SessionInfo) == false)
+            {
+                return new TradingValuesUpdateMessage(message.SessionInfo, message.OperationID, false);
+            }
+
+            return new TradingValuesUpdateMessage(message.SessionInfo, message.OperationID, 0, 0, 
+                GetSymbolData(message.SessionInfo.Symbol).ToArray());
+        }
+
+    }
+}

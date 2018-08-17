@@ -1,0 +1,5 @@
+﻿*Important*
+
+To compile this adapter, get the latest Order2GO API version from FXCM
+Found here, forum registration needed + fill in the request form.
+http://forexforums.dailyfx.com/order2go-com-trading-api/

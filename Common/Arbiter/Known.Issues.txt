@@ -1,0 +1,15 @@
+---- Blocking on WinForms : SOLVED ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+Using remote arbiter integrations in WinForms seems to be dependent on the WinMessage pump. Threads
+of the UI MUST NOT BE BLOCKED by calls, as otherwise it all stops.
+The reason for this is the SynchronizationContext on the UI thread. It gets picked up by the WCF.
+
+http://www.aaronmurrell.com/ThinkBlog/default.aspx?function=DisplayItem&showComments=true&entryGuid=124c3761-63a3-4604-bb4d-414a2a84ee48
+
+To solve it, on the implementation of your service, apply the
+ServiceBehavior/CallbackBehavior attribute, setting the UseSynchronizationContext to false 
+---- Provided
+Support for a single client to act as multiple clients, like the integration server does.
+
+---- To optimize invocation performance ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+[IMPLEMENTED] Implement this mechanism
+http://www.codeproject.com/KB/cs/FastMethodInvoker.aspx

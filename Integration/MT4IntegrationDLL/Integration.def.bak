@@ -1,0 +1,14 @@
+; Integration.def : Declares the module parameters for the DLL.
+
+LIBRARY      "Integration"
+
+EXPORTS
+    ; Explicit exports can go here
+InitializeIntegration;
+RequestNewOrder;
+OrderOpened;
+RequestCloseOrder;
+OrderClosed;
+RequestCloseAllOrders;
+AllOrdersClosed;
+ErrorOccured;

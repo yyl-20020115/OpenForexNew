@@ -1,0 +1,99 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Runtime.Serialization;
+using System.Text;
+using Arbiter;
+using CommonSupport;
+
+namespace ForexPlatform
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    [Serializable]
+    public abstract class PlatformComponent : TransportClient
+    {
+        [NonSerialized]
+        Platform _platform;
+        public Platform Platform
+        {
+            get { return _platform; }
+        }
+
+        public virtual bool IsInitialized
+        {
+            get { return _platform != null; }
+        }
+
+        public virtual bool MultipleInstancesAllowed
+        {
+            get { return true; }
+        }
+
+        /// <summary>
+        /// Component will try to use UserFriendlyNameAttribute to establish a name for the current component, or if not available use class type name.
+        /// </summary>
+        public PlatformComponent(bool singleThreadMode)
+            : base(singleThreadMode)
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PlatformComponent(string name, bool singleThreadMode)
+            : base(name, singleThreadMode)
+        {
+
+        }
+
+        //public bool SetInitialState(SettingsBase data)
+        //{
+        //    return OnSetInitialState(data);
+        //}
+
+        public bool Initialize(Platform platform)
+        {
+            SystemMonitor.CheckThrow(_platform == null);
+
+            if (OnInitialize(platform) == false)
+            {
+                return false;
+            }
+            _platform = platform;
+            
+            return true;
+        }
+
+        public bool UnInitialize()
+        {
+            if (IsInitialized == false)
+            {
+                return true;
+            }
+
+            bool result = OnUnInitialize();
+            _platform = null;
+
+            return result;
+        }
+
+        //protected virtual bool OnSetInitialState(SettingsBase data)
+        //{
+        //    return true;
+        //}
+
+        protected virtual bool OnInitialize(Platform platform)
+        {
+            return true;
+        }
+
+        protected virtual bool OnUnInitialize()
+        {
+            return true;
+        }
+
+
+    }
+}

@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{075EA77E-6ED3-40C9-8571-D74BC0A848EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CommonFinancial</RootNamespace>
+    <AssemblyName>CommonFinancial</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>CommonFinancial.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Chart.CustomObjects\ArrowObject.cs" />
+    <Compile Include="Chart.CustomObjects\TextObject.cs" />
+    <Compile Include="Chart.CustomObjects\FibonacciRetracementObject.cs" />
+    <Compile Include="Chart.Series\MultiProviderTradeChartSeries.cs" />
+    <Compile Include="Chart.Series\RawDataTradeChartSeries.cs" />
+    <Compile Include="Chart.Series\TimeBasedChartSeries.cs" />
+    <Compile Include="Chart.Series\IndexBasedChartSeries.cs" />
+    <Compile Include="Chart\ChartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chart\ChartForm.Designer.cs">
+      <DependentUpon>ChartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chart\CrossHairRender.cs" />
+    <Compile Include="Common\CurrencyConversionManager.cs" />
+    <Compile Include="DataProvider\Implementation\DataBarFilter.cs" />
+    <Compile Include="DataProvider\Implementation\DataBarHistoryProvider.cs" />
+    <Compile Include="Data\DataHistoryRequest.cs" />
+    <Compile Include="Data\DataHistoryUpdate.cs" />
+    <Compile Include="Data\DataSubscriptionInfo.cs" />
+    <Compile Include="DataProvider\Implementation\DataTickHistoryProvider.cs" />
+    <Compile Include="DataProvider\Implementation\QuotationProvider.cs" />
+    <Compile Include="DataReadWrite\CSVDataBarReaderWriter.cs" />
+    <Compile Include="DataReadWrite\DataReaderWriter.cs" />
+    <Compile Include="Data\DataTick.cs" />
+    <Compile Include="DataReadWrite\HSTDataBarReaderWriter.cs" />
+    <Compile Include="DataProvider\IDataTickHistoryProvider.cs" />
+    <Compile Include="Data\Quote.cs" />
+    <Compile Include="Evaluator\EvaluationResultSet.cs" />
+    <Compile Include="Evaluator\EvaluationResultSetFilter.cs" />
+    <Compile Include="Evaluator\EvaluativeOccurence.cs" />
+    <Compile Include="Evaluator\EvaluativeOccurenceResultSet.cs" />
+    <Compile Include="Account\AccountInfo.cs" />
+    <Compile Include="Chart.CustomObjects\OrdersMarkerObject.cs" />
+    <Compile Include="Chart.Series\ProviderTradeChartSeries.cs" />
+    <Compile Include="Chart.Series\ProviderTradeChartSeries.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProviderTradeChartSeries.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Chart\ChartPane1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChartPane.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Chart.CustomObjects\LevelLinesChartObject.cs" />
+    <Compile Include="Chart.Series\LinesChartSeries.cs" />
+    <Compile Include="Chart.Series\ImagesChartSeries.cs" />
+    <Compile Include="Chart.Series\TradeChartSeries.cs" />
+    <Compile Include="Chart.Custom\DynamicCustomObject.cs" />
+    <Compile Include="Chart\GraphicsWrapper.cs" />
+    <Compile Include="Chart\MasterChartPane.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Chart\SlaveChartPane.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Chart\SlaveChartPane.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SlaveChartPane.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Chart.Custom\CustomObjectsManager.cs" />
+    <Compile Include="Chart.CustomObjects\LineObject.cs" />
+    <Compile Include="Data\DataBar.cs" />
+    <Compile Include="Account\BackTestAccount.cs" />
+    <Compile Include="Account\Account.cs" />
+    <Compile Include="Account\AccountStatistics.cs" />
+    <Compile Include="ExpertSession\RuntimeDataSessionInformation.cs" />
+    <Compile Include="FinancialHelper.cs" />
+    <Compile Include="DataProvider\Implementation\SessionDataProvider.cs" />
+    <Compile Include="DataProvider\ISourceDataDelivery.cs" />
+    <Compile Include="Indicator\IndicatorManager.cs" />
+    <Compile Include="OrderProvider\Implementation\BackTestOrderExecutionProvider.cs" />
+    <Compile Include="OrderProvider\IOrderSink.cs" />
+    <Compile Include="OrderProvider\ITradeEntityManagement.cs" />
+    <Compile Include="OrderProvider\Implementation\OrderExecutionProvider.cs" />
+    <Compile Include="OrderProvider\Implementation\TradeEntityKeeper.cs" />
+    <Compile Include="Position\ActivePosition.cs" />
+    <Compile Include="Position\PassivePosition.cs" />
+    <Compile Include="Position\PositionExecutionInfo.cs" />
+    <Compile Include="Order\PassiveOrder.cs" />
+    <Compile Include="Position\IPosition.cs" />
+    <Compile Include="Position\Position.cs" />
+    <Compile Include="Position\PositionInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Source\IExpertSessionManager.cs" />
+    <Compile Include="Symbol\Symbol.cs" />
+    <Compile Include="Expert\ManagedExpert.cs" />
+    <Compile Include="Indicator\IndicatorParameters.cs" />
+    <Compile Include="Indicator\IndicatorSignals.cs" />
+    <Compile Include="Order\Order.cs" />
+    <Compile Include="DataProvider\IDataBarHistoryProvider.cs" />
+    <Compile Include="DataProvider\IQuoteProvider.cs" />
+    <Compile Include="Evaluator\Evaluator.cs" />
+    <Compile Include="Expert\Expert.cs" />
+    <Compile Include="ExpertSession\ExpertSession.cs" />
+    <Compile Include="Source\ISourceManager.cs" />
+    <Compile Include="Chart.Custom\CustomObject.cs" />
+    <Compile Include="Chart\ChartControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Chart\ChartControl.Designer.cs">
+      <DependentUpon>ChartControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chart\ChartGrid.cs" />
+    <Compile Include="Chart\ChartPane.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Chart\ChartPane.Designer.cs">
+      <DependentUpon>ChartPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chart.Series\ChartSeries.cs" />
+    <Compile Include="Chart\ChartSeriesColorSelector.cs" />
+    <Compile Include="Indicator\Indicator.cs" />
+    <Compile Include="Indicator\IndicatorResults.cs" />
+    <Compile Include="Order\OrderInfo.cs" />
+    <Compile Include="Order\AdvancedActiveOrder.cs" />
+    <Compile Include="Order\ActiveOrder.cs" />
+    <Compile Include="Order\PartialTakeProfitOrder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataProvider\ISessionDataProvider.cs" />
+    <Compile Include="OrderProvider\ISourceOrderExecution.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertSession\DataSessionInfo.cs" />
+    <Compile Include="StatisticsAndTesting\RiskRewardTester.cs" />
+    <Compile Include="Web References\Webservicex.CurrencyConvertor\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CommonFinancial.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Chart.Series\ProviderTradeChartSeries.resx">
+      <DependentUpon>ProviderTradeChartSeries.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProviderTradeChartSeries.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chart\ChartPane.resx">
+      <DependentUpon>ChartPane.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ChartPane1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chart\ChartForm.resx">
+      <DependentUpon>ChartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chart\SlaveChartPane.resx">
+      <DependentUpon>SlaveChartPane.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SlaveChartPane.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chart\ChartControl.resx">
+      <DependentUpon>ChartControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Arbiter\Arbiter.csproj">
+      <Project>{EDBD2C96-37F0-44AE-A15F-9E35AE63AA20}</Project>
+      <Name>Arbiter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonSupport\CommonSupport.csproj">
+      <Project>{172034CD-F109-44BD-9A27-ACBEF8C41B88}</Project>
+      <Name>CommonSupport</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nav_up_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nav_down_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_up_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_down_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_down_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ADD2.BW.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\navigate_right.end.2.png" />
+    <None Include="Web References\Webservicex.CurrencyConvertor\CurrencyConvertor.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://www.webservicex.com/CurrencyConvertor.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Webservicex.CurrencyConvertor\</RelPath>
+      <UpdateFromURL>http://www.webservicex.com/CurrencyConvertor.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CommonFinancial_Webservicex_CurrencyConvertor_CurrencyConvertor</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Webservicex.CurrencyConvertor\CurrencyConvertor.disco" />
+    <None Include="Web References\Webservicex.CurrencyConvertor\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)\..\..\External\gacutil.exe" /i "$(TargetPath)"</PostBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)\..\..\External\gacutil.exe" /u $(ProjectName)</PreBuildEvent>
+  </PropertyGroup>
+</Project>

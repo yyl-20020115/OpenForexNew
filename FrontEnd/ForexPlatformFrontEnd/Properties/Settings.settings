@@ -1,0 +1,77 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ForexPlatformFrontEnd.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DeveloperMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SingleInstanceMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DefaultMT4IntegrationAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">net.tcp://localhost:13123/TradingAPI</Value>
+    </Setting>
+    <Setting Name="PlatformUriAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">net.tcp://localhost:17992/Platform/</Value>
+    </Setting>
+    <Setting Name="DataStoreOnlineSourcesXml" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://www.openforexplatform.com/app/onlinedatasources.xml</Value>
+    </Setting>
+    <Setting Name="TraceLogFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\Output.Logs\Platform\ForexPlatform.FrontEnd.{DateTime}.log</Value>
+    </Setting>
+    <Setting Name="FilesFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\Files</Value>
+    </Setting>
+    <Setting Name="ExpertsFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\Files.Data\Experts</Value>
+    </Setting>
+    <Setting Name="PlatformDBPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\Files.Data\platform.s3db</Value>
+    </Setting>
+    <Setting Name="DataStoreDBPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\Files.Data\datastore.s3db</Value>
+    </Setting>
+    <Setting Name="EventsDBPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\Files.Data\events.s3db</Value>
+    </Setting>
+    <Setting Name="DataStoreFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\Files.Data\DataStore</Value>
+    </Setting>
+    <Setting Name="OptionalModules" Type="System.String" Scope="User">
+      <Value Profile="(Default)">MT4Adapter.dll
+MBTradingAdapter.dll
+FXCMAdapter.dll</Value>
+    </Setting>
+    <Setting Name="AllowPerformanceCounters" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DefaultRSSFeeds" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://www.forbes.com/business/index.xml
+http://www.forbes.com/markets/index.xml
+http://rss.businessweek.com/bw_rss/bwdaily
+http://rss.businessweek.com/bw_rss/bwdaily
+http://rss.businessweek.com/bw_rss/asiaindex
+http://rss.businessweek.com/bw_rss/europeindex
+http://rss.businessweek.com/bw_rss/investor
+http://rss.cnn.com/rss/money_news_economy.rss
+http://finance.yahoo.com/rss/CreditServices
+http://feeds.reuters.com/reuters/businessNews?format=xml
+http://feeds.marketwatch.com/marketwatch/bulletins?format=xml
+http://feeds.marketwatch.com/marketwatch/realtimeheadlines/
+http://news.google.com/?ned=us&amp;topic=b&amp;output=rss
+http://www.federalreserve.gov/feeds/press_all.xml
+http://www.telegraph.co.uk/finance/rss</Value>
+    </Setting>
+    <Setting Name="ExternalModules" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\Output.Modules\HedgeExpertModule.dll
+..\Output.Modules\IntegralAdapter.dll
+..\Output.Modules\Experts.dll
+..\Output.Modules\MTAS.dll
+..\Output.Modules\DukasCopyAdapter.dll
+..\Output.Modules\OFxP.SuperPoolIntegration.dll
+..\Output.Modules\CommonFIX.dll
+..\Output.Modules\MT4OrderDuplication.dll</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

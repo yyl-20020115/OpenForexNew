@@ -1,0 +1,686 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{85985191-4247-41EF-BE4E-4E65B0E3925D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ForexPlatformFrontEnd</RootNamespace>
+    <AssemblyName>ForexPlatformFrontEnd</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ApplicationIcon>column-chart.ico</ApplicationIcon>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <StartupObject>
+    </StartupObject>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\..\..\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AIMS.CodeEditor, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\AIMS.CodeEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="AIMS.SyntaxDocument, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\AIMS.SyntaxDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="AIMS.SyntaxFiles, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\AIMS.SyntaxFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TA-Lib-Core, Version=1.0.3147.41271, Culture=neutral, PublicKeyToken=fdb2a6b268f56aa5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\TA-Lib-Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\AccountsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Account\AccountsControl.Designer.cs">
+      <DependentUpon>AccountsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\AccountStatisticsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Account\AccountStatisticsControl.Designer.cs">
+      <DependentUpon>AccountStatisticsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\AccountControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Account\AccountControl.Designer.cs">
+      <DependentUpon>AccountControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataStore\DataStoreManagementComponentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataStore\DataStoreManagementComponentControl.Designer.cs">
+      <DependentUpon>DataStoreManagementComponentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataStore\OnlineDataStoresControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataStore\OnlineDataStoresControl.Designer.cs">
+      <DependentUpon>OnlineDataStoresControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AIManagedExpert.cs" />
+    <Compile Include="MarketWatch\MarketWatchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MarketWatch\MarketWatchControl.Designer.cs">
+      <DependentUpon>MarketWatchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertManagement\ExpertManagementControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExpertManagement\ExpertManagementControl.Designer.cs">
+      <DependentUpon>ExpertManagementControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertManagement\ExpertEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExpertManagement\ExpertEditorControl.Designer.cs">
+      <DependentUpon>ExpertEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertControls\ComponentTradingExpertControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExpertControls\ComponentTradingExpertControl.Designer.cs">
+      <DependentUpon>ComponentTradingExpertControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertControls\ManagedExpertControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExpertControls\ManagedExpertControl.Designer.cs">
+      <DependentUpon>ManagedExpertControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertSession\CreateExpertSessionControl2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExpertSession\CreateExpertSessionControl2.Designer.cs">
+      <DependentUpon>CreateExpertSessionControl2.cs</DependentUpon>
+    </Compile>
+    <None Include="ExpertControls\MasterOrderManagementControl.cs">
+      <SubType>UserControl</SubType>
+    </None>
+    <None Include="ExpertControls\MasterOrderManagementControl.Designer.cs">
+      <DependentUpon>MasterOrderManagementControl.cs</DependentUpon>
+    </None>
+    <Compile Include="OpenForexPlatformBeta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenForexPlatformBeta.Designer.cs">
+      <DependentUpon>OpenForexPlatformBeta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Management\SourceManagementComponentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Management\SourceManagementComponentControl.designer.cs">
+      <DependentUpon>SourceManagementComponentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\OptionsCalculatorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\OptionsCalculatorControl.Designer.cs">
+      <DependentUpon>OptionsCalculatorControl.cs</DependentUpon>
+    </Compile>
+    <None Include="Order\MasterOrdersControl.cs">
+      <SubType>UserControl</SubType>
+    </None>
+    <None Include="Order\MasterOrdersControl.Designer.cs">
+      <DependentUpon>MasterOrdersControl.cs</DependentUpon>
+    </None>
+    <Compile Include="Order\PriceHelpControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Order\PriceHelpControl.Designer.cs">
+      <DependentUpon>PriceHelpControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Position\PositionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Position\PositionsControl.Designer.cs">
+      <DependentUpon>PositionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SandBox\FormGadgetsPrototype.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SandBox\FormGadgetsPrototype.Designer.cs">
+      <DependentUpon>FormGadgetsPrototype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="Indicator\ExpertSessionIndicatorsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Indicator\ExpertSessionIndicatorsControl.Designer.cs">
+      <DependentUpon>ExpertSessionIndicatorsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Order\ModifyOrderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Order\ModifyOrderControl.Designer.cs">
+      <DependentUpon>ModifyOrderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertSession\CreateExpertSessionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExpertSession\CreateExpertSessionForm.Designer.cs">
+      <DependentUpon>CreateExpertSessionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertControls\ExpertHostControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExpertControls\ExpertHostControl.Designer.cs">
+      <DependentUpon>ExpertHostControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertSession\PlatformExpertSessionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExpertSession\PlatformExpertSessionControl.Designer.cs">
+      <DependentUpon>PlatformExpertSessionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertControls\ManualMultiTradeExpertControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExpertControls\ManualMultiTradeExpertControl.Designer.cs">
+      <DependentUpon>ManualMultiTradeExpertControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Order\NewOrderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Order\NewOrderControl.Designer.cs">
+      <DependentUpon>NewOrderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Order\OrdersControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Order\OrdersControl.Designer.cs">
+      <DependentUpon>OrdersControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\SplashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\SplashForm.Designer.cs">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\SymbolSelectControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\SymbolSelectControl.Designer.cs">
+      <DependentUpon>SymbolSelectControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeControl\TimeManagementSkipToControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeControl\TimeManagementSkipToControl.Designer.cs">
+      <DependentUpon>TimeManagementSkipToControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeControl\TimeManagementToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TimeControl\TimeManagementToolStrip.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimeManagementToolStrip.resx</DependentUpon>
+    </Compile>
+    <None Include="Source\ExecutionSourceControl.cs" />
+    <None Include="Source\ExecutionSourceControl.Designer.cs">
+      <DependentUpon>ExecutionSourceControl.cs</DependentUpon>
+    </None>
+    <Compile Include="RemoteExpertHostForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemoteExpertHostForm.Designer.cs">
+      <DependentUpon>RemoteExpertHostForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Account\AccountsControl.resx">
+      <DependentUpon>AccountsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\AccountStatisticsControl.resx">
+      <DependentUpon>AccountStatisticsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\AccountControl.resx">
+      <DependentUpon>AccountControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataStore\DataStoreManagementComponentControl.resx">
+      <DependentUpon>DataStoreManagementComponentControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataStore\OnlineDataStoresControl.resx">
+      <DependentUpon>OnlineDataStoresControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MarketWatch\MarketWatchControl.resx">
+      <DependentUpon>MarketWatchControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertManagement\ExpertManagementControl.resx">
+      <DependentUpon>ExpertManagementControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertManagement\ExpertEditorControl.resx">
+      <DependentUpon>ExpertEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertControls\ComponentTradingExpertControl.resx">
+      <DependentUpon>ComponentTradingExpertControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertControls\ManagedExpertControl.resx">
+      <DependentUpon>ManagedExpertControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertSession\CreateExpertSessionControl2.resx">
+      <DependentUpon>CreateExpertSessionControl2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertControls\MasterOrderManagementControl.resx">
+      <DependentUpon>MasterOrderManagementControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenForexPlatformBeta.resx">
+      <DependentUpon>OpenForexPlatformBeta.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Indicator\ExpertSessionIndicatorsControl.resx">
+      <DependentUpon>ExpertSessionIndicatorsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Management\SourceManagementComponentControl.resx">
+      <DependentUpon>SourceManagementComponentControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\OptionsCalculatorControl.resx">
+      <DependentUpon>OptionsCalculatorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Order\MasterOrdersControl.resx">
+      <DependentUpon>MasterOrdersControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Order\ModifyOrderControl.resx">
+      <DependentUpon>ModifyOrderControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertSession\CreateExpertSessionForm.resx">
+      <DependentUpon>CreateExpertSessionForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertControls\ExpertHostControl.resx">
+      <DependentUpon>ExpertHostControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertSession\PlatformExpertSessionControl.resx">
+      <DependentUpon>PlatformExpertSessionControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertControls\ManualMultiTradeExpertControl.resx">
+      <DependentUpon>ManualMultiTradeExpertControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Order\NewOrderControl.resx">
+      <DependentUpon>NewOrderControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Order\OrdersControl.resx">
+      <DependentUpon>OrdersControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Order\PriceHelpControl.resx">
+      <DependentUpon>PriceHelpControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Position\PositionsControl.resx">
+      <DependentUpon>PositionsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SandBox\FormGadgetsPrototype.resx">
+      <DependentUpon>FormGadgetsPrototype.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\SplashForm.resx">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\SymbolSelectControl.resx">
+      <DependentUpon>SymbolSelectControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeControl\TimeManagementSkipToControl.resx">
+      <DependentUpon>TimeManagementSkipToControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeControl\TimeManagementToolStrip.resx">
+      <DependentUpon>TimeManagementToolStrip.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TimeManagementToolStrip.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\ExecutionSourceControl.resx">
+      <DependentUpon>ExecutionSourceControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\DataSourceControl.resx">
+      <DependentUpon>DataSourceControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemoteExpertHostForm.resx">
+      <DependentUpon>RemoteExpertHostForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\PlatformComponentControl.resx">
+      <DependentUpon>PlatformComponentControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tester\ConsecutivesTestControl.resx">
+      <DependentUpon>ConsecutivesTestControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Diagnostics\DiagnosticsComponentControl.resx">
+      <DependentUpon>DiagnosticsComponentControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Management\AdapterManagementComponentControl.resx">
+      <DependentUpon>AdapterManagementComponentControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tester\MoneyManagerControl.resx">
+      <DependentUpon>MoneyManagerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="News\PlatformNewsControl.resx">
+      <DependentUpon>PlatformNewsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertSession\SessionInfosControl.resx">
+      <DependentUpon>SessionInfosControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\MultipleItemStatisticsControl.resx">
+      <DependentUpon>MultipleItemStatisticsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Common\PlatformComponentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\PlatformComponentControl.Designer.cs">
+      <DependentUpon>PlatformComponentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tester\ConsecutivesTestControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tester\ConsecutivesTestControl.Designer.cs">
+      <DependentUpon>ConsecutivesTestControl.cs</DependentUpon>
+    </Compile>
+    <None Include="Source\DataSourceControl.cs">
+    </None>
+    <None Include="Source\DataSourceControl.Designer.cs">
+      <DependentUpon>DataSourceControl.cs</DependentUpon>
+    </None>
+    <Compile Include="Diagnostics\DiagnosticsComponentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Diagnostics\DiagnosticsComponentControl.Designer.cs">
+      <DependentUpon>DiagnosticsComponentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Management\AdapterManagementComponentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Management\AdapterManagementComponentControl.Designer.cs">
+      <DependentUpon>AdapterManagementComponentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tester\MoneyManagerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="News\PlatformNewsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="News\PlatformNewsControl.Designer.cs">
+      <DependentUpon>PlatformNewsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertSession\SessionInfosControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExpertSession\SessionInfosControl.Designer.cs">
+      <DependentUpon>SessionInfosControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MultipleItemStatisticsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\MultipleItemStatisticsControl.Designer.cs">
+      <DependentUpon>MultipleItemStatisticsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tester\TesterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Arbiter\Arbiter.csproj">
+      <Project>{EDBD2C96-37F0-44AE-A15F-9E35AE63AA20}</Project>
+      <Name>Arbiter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\CommonFinancial\CommonFinancial.csproj">
+      <Project>{075EA77E-6ED3-40C9-8571-D74BC0A848EB}</Project>
+      <Name>CommonFinancial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\CommonSupport\CommonSupport.csproj">
+      <Project>{172034CD-F109-44BD-9A27-ACBEF8C41B88}</Project>
+      <Name>CommonSupport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Integration\MT4Adapter\MT4Adapter.csproj">
+      <Project>{1AE0F0B4-DDD6-4AB8-A014-F995783CDFFA}</Project>
+      <Name>MT4Adapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ForexPlatform\ForexPlatform.csproj">
+      <Project>{AEC78DC5-5E00-439A-ABA0-0579E09F892C}</Project>
+      <Name>ForexPlatform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ForexPlatformClient\ForexPlatformClient.csproj">
+      <Project>{9137AECA-DA61-49BF-A510-B3399C54E951}</Project>
+      <Name>ForexPlatformClient</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="column-chart.ico" />
+    <None Include="Resources\document_warning.png" />
+    <None Include="Resources\cube_molecule.png" />
+    <None Include="Resources\GEARS.PNG" />
+    <None Include="Resources\WARNING.png" />
+    <None Include="Resources\TV.png" />
+    <None Include="Resources\text_tree.png" />
+    <None Include="Resources\selection_replace.png" />
+    <None Include="Resources\PIN_GREY.png" />
+    <None Include="Resources\photo_scenery.png" />
+    <None Include="Resources\navigate_right.png" />
+    <None Include="Resources\magic_wand.png" />
+    <None Include="Resources\information.png" />
+    <None Include="Resources\HELP.png" />
+    <None Include="Resources\EXCHANGE.png" />
+    <None Include="Resources\environment_information.png" />
+    <None Include="Resources\element_selection.png" />
+    <None Include="Resources\element_next.png" />
+    <None Include="Resources\dot.png" />
+    <None Include="Resources\DISKS.png" />
+    <None Include="Resources\disk_blue.png" />
+    <None Include="Resources\DELETE2.png" />
+    <None Include="Resources\DELETE.png" />
+    <None Include="Resources\CUBES.png" />
+    <None Include="Resources\cube_yellow.png" />
+    <None Include="Resources\cube_green.png" />
+    <None Include="Resources\CONTRACT.png" />
+    <None Include="Resources\CHECKS.png" />
+    <None Include="Resources\CABINET.png" />
+    <None Include="Resources\button_cancel_12_b.png" />
+    <None Include="Resources\button_cancel_12.png" />
+    <None Include="Resources\breakpoints.png" />
+    <None Include="Resources\breakpoint_selection.png" />
+    <None Include="Resources\breakpoint.png" />
+    <None Include="Resources\BOOKS.png" />
+    <None Include="Resources\arrow_up_green_24.png" />
+    <None Include="Resources\arrow_down_red_24.png" />
+    <None Include="Resources\alarmclock_preferences.png" />
+    <None Include="Resources\address_book.png" />
+    <None Include="Resources\ADD2.png" />
+    <None Include="Resources\ADD.png" />
+    <None Include="Resources\briefcase2_view.png" />
+    <None Include="Resources\STOP.PNG" />
+    <None Include="Resources\CHECK2.PNG" />
+    <None Include="Resources\FIND.PNG" />
+    <None Include="Resources\CLIENTS.PNG" />
+    <None Include="Resources\elements1.png" />
+    <None Include="Resources\FACTORY.PNG" />
+    <None Include="Resources\PIN_BLUE.PNG" />
+    <None Include="Resources\UP_DOWN.PNG" />
+    <None Include="Resources\businessman.png" />
+    <None Include="Resources\media_play_green.png" />
+    <None Include="Resources\dot-chart.png" />
+    <None Include="Resources\arrow_up_green1.png" />
+    <None Include="Resources\magic-wand.ico" />
+    <None Include="Resources\address_book2.png" />
+    <None Include="Resources\arrow_up_green.png" />
+    <None Include="Resources\arrow_down_red.png" />
+    <None Include="Resources\document_exchange.png" />
+    <None Include="Resources\arrow_down_red.24.png" />
+    <None Include="Resources\currency_dollar1.png" />
+    <None Include="Resources\currency_dollar_grayscale.png" />
+    <None Include="Resources\currency_dollar.png" />
+    <None Include="Resources\CHART.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Operator\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
